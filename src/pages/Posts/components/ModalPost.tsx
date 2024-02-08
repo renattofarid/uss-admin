@@ -223,9 +223,7 @@ function ModalPost() {
                         Complete el formulario para crear un nuevo post
                     </DialogDescription>
                 </DialogHeader>
-                <pre>
-                    {JSON.stringify(form, null, 2)}
-                </pre>
+
                 <form onSubmit={handleOnSubmit} encType='multipart/form-data'>
                     <div className="flex flex-col gap-4 py-4">
                         <div className="flex flex-col items-start gap-2">
