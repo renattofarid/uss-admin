@@ -71,28 +71,10 @@ export const postStore = create<State & Actions>((set) => ({
   getData: async () => {
     try {
       set({ loading: true });
-      const [posts, tags, users] = await Promise.all([getPosts(), getTags(), getUsers()]);
+      const [posts, tags] = await Promise.all([getPosts(), getTags()]);
+      const users = await getUsers();
       set({ posts, tags, users });
-      const tablePosts = posts.map((post) => ({
-        title: (
-          <div className="flex flex-row gap-2">
-            <img
-              className="w-12 h-12 rounded-lg object-cover"
-              src={
-                post.imageUrl ||
-                "https://avatars.githubusercontent.com/u/93000567"
-              }
-              alt={post.title}
-            />
-            <span className="text-xs font-semibold">{post.title}</span>
-          </div>
-        ),
-        id: post.id,
-        category: post.category,
-        readingTime: transformSecondsToMinutes(Number(post.readingTime)),
-        likes: post.likes,
-        createdAt: formatDate(post.createdAt),
-      }));
+      const tablePosts = mapPostsToTablePosts(posts);
       set({ tablePosts });
     } catch (error) {
       console.error("Ocurrió un error inesperado, intente nuevamente");
