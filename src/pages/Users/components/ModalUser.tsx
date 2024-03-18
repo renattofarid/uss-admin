@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useContext, useEffect, useState } from "react";
 import { UserBodyRequest, createUser } from "@/services/users";
-import { uploadImage } from "@/services/posts";
+import { uploadFile } from "@/services/posts";
 import { UserContext } from "../context/UserContext";
 import { toast } from "sonner";
 
@@ -50,10 +50,10 @@ function ModalPost() {
         const file = e.target.files![0];
         try {
             setLoading(true);
-            const { secure_url } = await uploadImage(file);
+            const { url } = await uploadFile(file);
             setForm({
                 ...form,
-                image: secure_url,
+                image: url,
             });
         } catch (error) {
             toast.error('Ocurrió un error inesperado, intente nuevamente');

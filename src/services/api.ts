@@ -18,15 +18,15 @@ export const apiCloudinary = axios.create({
     }
 })
 
-// api.interceptors.request.use(
-//     (config) => {
-//         const token = localStorage.getItem('token');
-//         if ( token ) {
-//             config.headers['Authorization'] = `Bearer ${token}`;
-//         }
-//         return config;
-//     }
-// );
+api.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+        if ( token ) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    }
+);
 
 // export const apiLogin = axios.create({
 //     baseURL: 'http://181.224.242.66:8080/cixdwp/api',

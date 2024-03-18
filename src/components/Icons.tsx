@@ -4,7 +4,7 @@ interface Props {
   height?: number;
   width?: number;
 }
-export const ChevronDown = ({fill, size, height, width, ...props}:Props) => {
+export const ChevronDown = ({ fill, size, height, width, ...props }: Props) => {
   return (
     <svg
       fill="none"
@@ -26,7 +26,7 @@ export const ChevronDown = ({fill, size, height, width, ...props}:Props) => {
   );
 };
 
-export const Lock = ({fill, size, height, width, ...props}:Props) => {
+export const Lock = ({ fill, size, height, width, ...props }: Props) => {
   const color = fill;
 
   return (
@@ -73,7 +73,7 @@ export const Lock = ({fill, size, height, width, ...props}:Props) => {
   );
 };
 
-export const Activity = ({fill, size, height, width, ...props}:Props) => {
+export const Activity = ({ fill, size, height, width, ...props }: Props) => {
   return (
     <svg
       height={size || height || 24}
@@ -104,7 +104,7 @@ export const Flash = ({
   height,
   width,
   ...props
-}:Props) => {
+}: Props) => {
   return (
     <svg
       fill="none"
@@ -132,7 +132,7 @@ export const Server = ({
   height,
   width,
   ...props
-}:Props) => {
+}: Props) => {
   return (
     <svg
       fill="none"
@@ -159,7 +159,7 @@ export const TagUser = ({
   height,
   width,
   ...props
-}:Props) => {
+}: Props) => {
   return (
     <svg
       fill="none"
@@ -195,7 +195,7 @@ export const Scale = ({
   height,
   width,
   ...props
-}:Props) => {
+}: Props) => {
   return (
     <svg
       fill="none"
@@ -263,7 +263,7 @@ export const LockIcon = (props: any) => (
   </svg>
 );
 
-export const PlusIcon = ({size = 24, width, height, ...props}: any) => (
+export const PlusIcon = ({ size = 24, width, height, ...props }: any) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -287,7 +287,7 @@ export const PlusIcon = ({size = 24, width, height, ...props}: any) => (
   </svg>
 );
 
-export const VerticalDotsIcon = ({size = 24, width, height, ...props}: any) => (
+export const VerticalDotsIcon = ({ size = 24, width, height, ...props }: any) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -333,7 +333,7 @@ export const SearchIcon = (props: any) => (
   </svg>
 );
 
-export const ChevronDownIcon = ({strokeWidth = 1.5, ...otherProps}) => (
+export const ChevronDownIcon = ({ strokeWidth = 1.5, ...otherProps }) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -354,3 +354,31 @@ export const ChevronDownIcon = ({strokeWidth = 1.5, ...otherProps}) => (
     />
   </svg>
 );
+
+import { Sort } from "@/types/sort.enum";
+
+export interface PropsIcon {
+  sort: Sort;
+  isActive?: boolean;
+}
+
+export function SortIcon({
+  sort,
+  isActive = false
+}: PropsIcon) {
+  const bgColor = isActive ? 'black' : 'gray';
+  if (sort === Sort.ASC) {
+    return <svg width="10" height="10" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 9H11L7.5 4.5L4 9Z" fill={bgColor}></path></svg>
+  }
+  return <svg width="10" height="10" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H11L7.5 10.5L4 6Z" fill={bgColor}></path></svg>
+}
+import { TableCell } from '@/components/ui/table'
+export function Spinner() {
+  return (
+    <TableCell className='max-w-12 mx-auto flex justify-center items-center'>
+      <svg className="spinner w-full" viewBox="0 0 50 50">
+        <circle cx="25" cy="25" r="20" fill="none" />
+      </svg>
+    </TableCell>
+  )
+}

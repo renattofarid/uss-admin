@@ -1,0 +1,117 @@
+/* Estilos para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 7px;
+    border: 2px solid #fff;
+    /* Grosor de la barra de desplazamiento */
+}
+
+/* Estilo de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background-color: #22c55e;
+    border: 2px solid #fff;
+    /* Color de la barra de desplazamiento */
+    border-radius: 4px;
+    /* Borde redondeado de la barra de desplazamiento */
+}
+
+/* Estilo de la pista de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+    background-color: #fff;
+    padding: 2px;
+    /* Color de fondo de la barra de desplazamiento */
+}
+
+/* Hacer el desplazamiento suave */
+.scrollSmooth {
+    scroll-behavior: smooth;
+}
+
+.pagination {
+    justify-content: center;
+    display: flex;
+    gap: 10px;
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.page-item .page-link {
+    position: relative;
+    display: block;
+    margin: 0 2px;
+    min-height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 40px;
+    color: #22c55e;
+    text-decoration: none;
+}
+
+.page-item span.page-link[aria-label="Next"] {
+    border: 1px solid #22c55e;
+    color: #22c55e;
+}
+
+.page-item span.page-link[aria-label="Previous"] {
+    border: 1px solid #22c55e;
+    color: #22c55e;
+}
+
+.page-item a.page-link[aria-label="Next"] {
+    border: 1px solid #22c55e;
+    color: #22c55e;
+}
+
+.page-item a.page-link[aria-label="Previous"] {
+    border: 1px solid #22c55e;
+    color: #22c55e;
+}
+
+.page-item.disabled span.page-link[aria-label="Next"] {
+    border: 1px solid #0a8e3b;
+    color: #0a8e3b;
+}
+
+.page-item.disabled span.page-link[aria-label="Previous"] {
+    border: 1px solid #0a8e3b;
+    color: #0a8e3b;
+}
+
+.page-item.disabled a.page-link[aria-label="Next"] {
+    border: 1px solid #0a8e3b;
+    color: #0a8e3b;
+}
+
+.page-item.disabled a.page-link[aria-label="Previous"] {
+    border: 1px solid #0a8e3b;
+    color: #0a8e3b;
+}
+
+.page-item a.page-link:hover {
+    background-color: #22c55e;
+    color: #ffffff;
+}
+
+.page-item.active .page-link {
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #22c55e;
+}
+
+.page-item.disabled .page-link {
+    color: #0a8e3b;
+    pointer-events: none;
+    cursor: auto;
+}
+
+/* Clase personalizada para aplicar border radius solo al thead */
+.thead-border-radius th:first-child {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.thead-border-radius th:last-child {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}

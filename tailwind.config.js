@@ -18,6 +18,19 @@ module.exports = {
     },
     extend: {
       colors: {
+        'uss-green': {
+          '50': '#f3ffe4',
+          '100': '#e2ffc5',
+          '200': '#c6ff92',
+          '300': '#a0ff53',
+          '400': '#7bfb20',
+          '500': '#5fed00',
+          '600': '#43b500',
+          '700': '#348902',
+          '800': '#2c6c08',
+          '900': '#275b0c',
+          '950': '#103300',
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

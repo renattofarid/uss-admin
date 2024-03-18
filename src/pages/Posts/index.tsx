@@ -1,24 +1,17 @@
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 import ModalPost from "./components/ModalPost"
-import { useContext, useEffect } from "react"
-import { PostContext } from "./context/PostContext"
+import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { getPosts } from "@/services/posts"
-import { toast } from "sonner"
+import { Post} from "@/services/posts"
+import { DataTable } from "@/components/DataTable/DataTable"
+import { ExtraColumn } from "@/types/columns"
+import { DeleteIcon, EditIcon } from "@/components/DataTable/TableIcons"
+import { postStore } from "./store/PostStore"
 
 const columns = [
     {
         field: "title",
         headerName: "Título",
-        className: ""
+        className: "w-1/3 font-bold"
     },
     {
         field: "category",
@@ -43,31 +36,31 @@ const columns = [
 ];
 
 function PostsPage() {
-    const { open, setOpen, posts, setPosts, loading, setLoading, setDraftPosts, setTablePosts, tablePosts } = useContext(PostContext)
-
-    const getData = async () => {
-        try {
-            setLoading(true);
-            const resp = await getPosts();
-            setPosts(resp);
-            setDraftPosts(resp);
-            setTablePosts(resp.map(post => ({
-                title: post.title,
-                category: post.category,
-                readingTime: post.readingTime,
-                likes: post.likes,
-                createdAt: post.createdAt
-            })));
-
-        } catch (error) {
-            toast.error('Ocurrió un error inesperado, intente nuevamente');
-        } finally {
-            setLoading(false);
-        }
-    }
+    const { open, setOpen, getData, tablePosts, loading, setPostSelected } = postStore()
     useEffect(() => {
         getData();
     }, [])
+
+    const extraColumns: ExtraColumn[] = [
+        {
+            headerName: 'Acciones',
+            field: 'actions',
+            render: (row: Post) => {
+                return (
+                    <div className="w-fit flex flex-row gap-1">
+                        <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
+                            onClick={() => setPostSelected(row.id, 'edit')}>
+                            <EditIcon />
+                        </Button>
+                        <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
+                            onClick={async () => setPostSelected(row.id, 'delete')}>
+                            <DeleteIcon />
+                        </Button>
+                    </div>
+                )
+            }
+        }
+    ]
 
 
     return (
@@ -77,37 +70,27 @@ function PostsPage() {
             </section>
 
             <section className="flex flex-row justify-between items-center gap-2">
-                <div>
+                <div className="invisible">
                     Filtros
                 </div>
                 <div>
                     <Button
-                        onClick={() => setOpen(!open)}
+                        onClick={() => {
+                            setPostSelected(null, 'create')
+                            setOpen(true)
+                        }}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nuevo Post
                     </Button>
                     {open && <ModalPost />}
                 </div>
             </section>
             <div>
-                <Table>
-                    <TableCaption>
-                        {loading ? '' : `Se encontraron ${posts.length} posts`}
-                    </TableCaption>
-                    <TableHeader>
-                        {columns.map((column, index) => (
-                            <TableHead key={index}>{column.headerName}</TableHead>
-                        ))}
-                    </TableHeader>
-                    <TableBody>
-                        {loading ? <TableRow><TableCell>Cargando...</TableCell></TableRow> : tablePosts.map((row, index) => (
-                            <TableRow key={index}>
-                                {columns.map((column, index) => (
-                                    <TableCell key={index}>{row[column.field]}</TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                <DataTable
+                    columns={columns}
+                    data={tablePosts}
+                    isLoading={loading}
+                    extraColumns={extraColumns}
+                />
             </div>
             <section>
 

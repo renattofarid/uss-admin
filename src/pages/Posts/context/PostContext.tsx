@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Category, Post } from '@/services/posts';
+import { Post } from '@/services/posts';
 
 interface TablePosts {
-    [key: string | number]: string | number;
-    title: string;
-    category: Category;
-    readingTime: number;
+    [key: string | number]: string | number | JSX.Element;
+    title: string | JSX.Element;
+    category: string;
+    readingTime: number | string;
     likes: number;
     createdAt: string;
 }

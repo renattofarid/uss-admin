@@ -49,7 +49,7 @@ function UsersPage() {
             const obj = resp.map(user => ({
                 image: (
                     <img
-                        className="h-8 w-8 rounded-full"
+                        className="w-6 rounded-full aspect-square object-cover"
                         src={user.image || 'https://avatars.githubusercontent.com/u/93000567'}
                         alt={user.name}
                     />

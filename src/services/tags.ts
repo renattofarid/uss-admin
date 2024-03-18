@@ -4,9 +4,9 @@ export interface Tag {
   id: number;
   name: string;
 }
-export const getTags = async (search?: string): Promise<Tag[]> => {
+export const getTags = async (search?: string): Promise<string[]> => {
   const { data } = await api.get(`/tags?search=${search || ''}`);
-  return data as Tag[];
+  return data as string[];
 };
 
 export const createTag = async (name: string): Promise<Tag> => {
