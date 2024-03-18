@@ -17,11 +17,11 @@ const routes = [
         label: 'Usuarios',
         redirectTo: '/usuarios',
     },
-    {
-        path: ['/tags'],
-        label: 'Tags',
-        redirectTo: '/tags',
-    },
+    // {
+    //     path: ['/tags'],
+    //     label: 'Tags',
+    //     redirectTo: '/tags',
+    // },
 ]
 interface ProtectedRouteProps {
     children?: JSX.Element;
