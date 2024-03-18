@@ -5,8 +5,8 @@ import { Login, Posts } from '@/pages'
 import { SpinnerSplash } from './SpinnerSplash'
 import { DashboardLayout } from '@/layouts/DashboardLayout'
 import { PostProvider } from '@/pages/Posts/context/PostContext'
-import { TagProvider } from '@/pages/Tags/context/TagContext'
-import TagsPage from '@/pages/Tags'
+// import { TagProvider } from '@/pages/Tags/context/TagContext'
+// import TagsPage from '@/pages/Tags'
 import { UserProvider } from '@/pages/Users/context/UserContext'
 import UsersPage from '@/pages/Users'
 
@@ -50,11 +50,11 @@ export const RoutesApp = () => {
               <Posts />
             </PostProvider>
           } />
-          <Route path="tags" element={
+          {/* <Route path="tags" element={
             <TagProvider>
               <TagsPage />
             </TagProvider>
-          } />
+          } /> */}
           <Route path="usuarios" element={
             <UserProvider>
               <UsersPage />
