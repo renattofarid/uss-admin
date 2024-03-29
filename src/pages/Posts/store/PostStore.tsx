@@ -28,6 +28,7 @@ type State = {
 type Actions = {
   getData: () => Promise<void>;
   setPostSelected: (id: string | null, action: ActionsTypes) => void;
+  getPosts: () => Promise<void>;
   getPost: (slug: string) => Promise<Post>;
   crtPost: (body: PostBodyRequest) => Promise<void>;
   updPost: (id: string, body: PostBodyRequest) => Promise<void>;
@@ -76,6 +77,18 @@ export const postStore = create<State & Actions>((set) => ({
       set({ posts, tags, users });
       const tablePosts = mapPostsToTablePosts(posts);
       set({ tablePosts });
+    } catch (error) {
+      console.error("Ocurrió un error inesperado, intente nuevamente");
+    } finally {
+      set({ loading: false });
+    }
+  },
+  getPosts: async () => {
+    try {
+      set({ loading: true });
+      const posts = await getPosts();
+      set({ posts });
+      set({ tablePosts: mapPostsToTablePosts(posts) });
     } catch (error) {
       console.error("Ocurrió un error inesperado, intente nuevamente");
     } finally {

@@ -9,7 +9,7 @@ export interface User {
   name: string;
   email: string;
   role: Role;
-  image: null | string;
+  image: string;
   isActive: boolean;
 }
 export const getUsers = async (role?: string): Promise<User[]> => {
@@ -28,3 +28,8 @@ export const createUser = async (body: UserBodyRequest): Promise<User> => {
   const { data } = await api.post(`/users`, body);
   return data as User;
 };
+
+export const updateUser = async (id: string, body: UserBodyRequest): Promise<User> => {
+  const { data } = await api.put(`/users/${id}`, body);
+  return data as User;
+}

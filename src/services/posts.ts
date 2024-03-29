@@ -5,16 +5,33 @@ export enum Category {
   BITS = "edu-bits",
   READS = "edu-reads",
   TUBES = "edu-tubes",
-  // PODCAST = 'edutrendspodcast',
   PODCAST = "edu-podcast",
+  EDITORIAL = "editorial",
 }
 
-export const CategoryMap: Record<Category, string> = {
+// mapper para enum Category
+export const categoryMapper = {
   [Category.NEWS]: "Noticias",
-  [Category.BITS]: "Bits",
+  [Category.BITS]: "Educando",
   [Category.READS]: "Lecturas",
-  [Category.TUBES]: "Tubes",
+  [Category.TUBES]: "AudioVisual",
   [Category.PODCAST]: "Podcast",
+  [Category.EDITORIAL]: "Mensaje Editorial",
+};
+
+export type HomeSectionType =
+  | "section-1"
+  | "section-2"
+  | "section-3"
+  | "section-4"
+  | "editorial";
+
+export const HomeSectionTypeMapper = {
+  "section-1": Category.NEWS,
+  "section-2": Category.NEWS,
+  "section-3": Category.TUBES,
+  "section-4": Category.READS,
+  editorial:   Category.EDITORIAL,
 };
 export interface Post {
   id: string;
@@ -58,7 +75,7 @@ export interface PostBodyRequest {
 export const getPostBySlug = async (slug: string): Promise<Post> => {
   const { data } = await api.get(`/posts/${slug}`);
   return data as Post;
-}
+};
 export const createPost = async (body: PostBodyRequest): Promise<Post> => {
   const { data } = await api.post(`/posts`, body);
   return data as Post;
@@ -68,9 +85,7 @@ export interface ResponseUploadFile {
   url: string;
 }
 
-export const uploadFile = async (
-  file: File
-): Promise<ResponseUploadFile> => {
+export const uploadFile = async (file: File): Promise<ResponseUploadFile> => {
   const formData = new FormData();
   formData.append("file", file);
   const { data } = await api.post<ResponseUploadFile>(
@@ -85,7 +100,10 @@ export const uploadFile = async (
   return data as ResponseUploadFile;
 };
 
-export const updatePost = async (id: string, body: PostBodyRequest): Promise<Post> => {
+export const updatePost = async (
+  id: string,
+  body: PostBodyRequest
+): Promise<Post> => {
   const { data } = await api.put(`/posts/${id}`, body);
   return data as Post;
 };

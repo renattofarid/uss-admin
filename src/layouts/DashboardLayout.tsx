@@ -17,6 +17,16 @@ const routes = [
         label: 'Usuarios',
         redirectTo: '/usuarios',
     },
+    {
+        path: ['/home'],
+        label: 'Home Posts',
+        redirectTo: '/home',
+    },
+    {
+        path: ['/autoridades'],
+        label: 'Autoridades',
+        redirectTo: '/autoridades',
+    },
     // {
     //     path: ['/tags'],
     //     label: 'Tags',

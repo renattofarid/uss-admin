@@ -9,6 +9,8 @@ import { PostProvider } from '@/pages/Posts/context/PostContext'
 // import TagsPage from '@/pages/Tags'
 import { UserProvider } from '@/pages/Users/context/UserContext'
 import UsersPage from '@/pages/Users'
+import HomePosts from '@/pages/Home'
+import AuthoritiesPage from '@/pages/Authorities'
 
 
 export const RoutesApp = () => {
@@ -59,6 +61,12 @@ export const RoutesApp = () => {
             <UserProvider>
               <UsersPage />
             </UserProvider>
+          } />
+          <Route path="home" element={
+            <HomePosts />
+          } />
+          <Route path="autoridades" element={
+            <AuthoritiesPage />
           } />
 
         </Route>

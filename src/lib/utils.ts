@@ -12,4 +12,5 @@ export const OPTIONS_CATEGORY = [
   { value: Category.READS, label: "Reads" },
   { value: Category.TUBES, label: "Tubes" },
   { value: Category.PODCAST, label: "Podcast" },
+  { value: Category.EDITORIAL, label: "Editorial" },
 ];

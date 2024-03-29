@@ -1,32 +1,32 @@
-import ModalUser from "./components/ModalUser"
+import ModalAuthority from "./components/ModalAuthority"
 import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { User } from "@/services/users"
+import { Authority } from "@/services/authorities"
 import { DataTable } from "@/components/DataTable/DataTable"
 import { ExtraColumn } from "@/types/columns"
-import { EditIcon } from "@/components/DataTable/TableIcons"
-import { UserStore } from "./store/UserStore"
+import { DeleteIcon, EditIcon } from "@/components/DataTable/TableIcons"
+import { AuthorityStore } from "./store/AuthorityStore"
 
 const columns = [
     {
         field: "name",
-        headerName: "Usuario",
+        headerName: "Autoridad",
         className: "w-1/3 font-bold"
     },
     {
-        field: "email",
-        headerName: "Email",
+        field: "hierachy",
+        headerName: "Orden",
         className: ""
     },
     {
-        field: "role",
-        headerName: "Rol",
+        field: "position",
+        headerName: "Cargo",
         className: ""
     },
 ];
 
-function UsersPage() {
-    const { open, setOpen, getData, tableUsers, loading, setUserSelected } = UserStore()
+function AuthoritiesPage() {
+    const { open, setOpen, getData, tableAuthorities, loading, setAuthoritySelected } = AuthorityStore()
     useEffect(() => {
         getData();
     }, [])
@@ -35,17 +35,17 @@ function UsersPage() {
         {
             headerName: 'Acciones',
             field: 'actions',
-            render: (row: User) => {
+            render: (row: Authority) => {
                 return (
                     <div className="w-fit flex flex-row gap-1">
                         <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
-                            onClick={() => setUserSelected(row, 'edit')}>
+                            onClick={() => setAuthoritySelected(row, 'edit')}>
                             <EditIcon />
                         </Button>
-                        {/* <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
-                            onClick={async () => setUserSelected(row.id, 'delete')}>
+                        <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
+                            onClick={async () => setAuthoritySelected(row, 'delete')}>
                             <DeleteIcon />
-                        </Button> */}
+                        </Button>
                     </div>
                 )
             }
@@ -56,7 +56,7 @@ function UsersPage() {
     return (
         <main className="flex flex-col gap-4 p-4">
             <section className="">
-                <h1 className="text-2xl font-semibold">Listado de Usuarios</h1>
+                <h1 className="text-2xl font-semibold">Listado de Autoridades</h1>
             </section>
 
             <section className="flex flex-row justify-between items-center gap-2">
@@ -66,18 +66,18 @@ function UsersPage() {
                 <div>
                     <Button
                         onClick={() => {
-                            setUserSelected(null, 'create')
+                            setAuthoritySelected(null, 'create')
                             setOpen(true)
                         }}
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nuevo Usuario
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nueva Autoridad
                     </Button>
-                    {open && <ModalUser />}
+                    {open && <ModalAuthority />}
                 </div>
             </section>
             <div>
                 <DataTable
                     columns={columns}
-                    data={tableUsers}
+                    data={tableAuthorities}
                     isLoading={loading}
                     extraColumns={extraColumns}
                 />
@@ -89,4 +89,4 @@ function UsersPage() {
     )
 }
 
-export default UsersPage
+export default AuthoritiesPage
