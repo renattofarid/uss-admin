@@ -1,6 +1,7 @@
 import axios from "axios";
+import { config } from "../config/app";
 
-const baseURL = 'https://observatorio-uss.azurewebsites.net/api'
+const baseURL = config.apiUrl;
 const baseURLCloudinary = 'https://api.cloudinary.com/v1_1/dndpjrsa5'
 export const api = axios.create({
     baseURL,
