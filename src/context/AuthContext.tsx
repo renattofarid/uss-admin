@@ -58,7 +58,6 @@ export const AuthProvider = ({ children }: Props) => {
         return setIsLoading(false)
       }
       try {
-        console.log('authenticating')
         const user = await getAuthenticatedUser(token)
         setUser(user)
       } catch (error) {

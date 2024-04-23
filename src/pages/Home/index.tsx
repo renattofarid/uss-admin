@@ -16,7 +16,6 @@ function HomePosts() {
   }, [])
 
   const handleSelectPost = (id: string, action: ActionsTypes, type: HomeSectionType = 'section-1') => {
-    console.log({ id, action })
     setIdHomePostSelected(id)
     setTypePostSelected(type)
     setAction(action)

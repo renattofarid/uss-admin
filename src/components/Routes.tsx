@@ -17,7 +17,6 @@ export const RoutesApp = () => {
   const { authenticate, isAuthenticating } = useContext(AuthContext)
 
   useEffect(() => {
-    console.log('RoutesApp -> authenticate', authenticate)
     authenticate()
   }, []);
 

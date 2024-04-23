@@ -66,7 +66,6 @@ export function DataTable({
     }
 
     const updateCurrentData = () => {
-        console.log('cambiando current data')
         let sortedData;
         if (!currentSortState) {
             sortedData = data
