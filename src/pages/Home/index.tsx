@@ -1,17 +1,20 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { homeStore } from "./store/HomeStore"
 import { ActionsTypes } from "@/types/general"
 import { postStore } from "../Posts/store/PostStore";
 import ModalHomePost from "./components/ModalHomePost";
 import { cn } from "@/lib/utils";
 import { HomeSectionType } from "@/services/posts";
+import { AuthContext } from "@/context/AuthContext";
 
 function HomePosts() {
   const { homePosts, getHomePosts, setIdHomePostSelected, setAction, open, setOpen, loading, setTypePostSelected } = homeStore()
   const { getPosts } = postStore();
+  const {user} = useContext(AuthContext)
+  
   useEffect(() => {
     getHomePosts()
-    getPosts()
+    getPosts({user: user!})
     return () => { setIdHomePostSelected(null) }
   }, [])
 

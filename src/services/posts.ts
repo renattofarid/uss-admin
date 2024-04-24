@@ -52,8 +52,18 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
 }
-export const getPosts = async (): Promise<Post[]> => {
-  const { data } = await api.get(`/posts`);
+export const getPosts = async ({
+  userId,
+}: {
+  userId? : string;
+} = {}): Promise<Post[]> => {
+  const params = new URLSearchParams();
+  if (userId) {
+    params.append("userId", userId);
+  }
+  const { data } = await api.get(`/posts`, {
+    params,
+  });
   return data as Post[];
 };
 

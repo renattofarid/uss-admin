@@ -1,6 +1,6 @@
 import { Post, PostBodyRequest, createPost, deletePost, getPostBySlug, getPosts, updatePost } from "@/services/posts";
 import { getTags } from "@/services/tags";
-import { User, getUsers } from "@/services/users";
+import { Role, User, getUsers } from "@/services/users";
 import { ActionsTypes } from "@/types/general";
 import { formatDate, transformSecondsToMinutes } from "@/utils/date";
 import { create } from "zustand";
@@ -26,9 +26,9 @@ type State = {
 };
 
 type Actions = {
-  getData: () => Promise<void>;
+  getData: (params: {user: User}) => Promise<void>;
   setPostSelected: (id: string | null, action: ActionsTypes) => void;
-  getPosts: () => Promise<void>;
+  getPosts: (params: {user: User}) => Promise<void>;
   getPost: (slug: string) => Promise<Post>;
   crtPost: (body: PostBodyRequest) => Promise<void>;
   updPost: (id: string, body: PostBodyRequest) => Promise<void>;
@@ -69,10 +69,12 @@ export const postStore = create<State & Actions>((set) => ({
   action: 'none',
   loading: false,
   open: false,
-  getData: async () => {
+  getData: async ({user}: {user: User}) => {
     try {
       set({ loading: true });
-      const [posts, tags] = await Promise.all([getPosts(), getTags()]);
+      const [posts, tags] = await Promise.all([getPosts({
+        userId: user.role === Role.ADMIN ? undefined : user.id,
+      }), getTags()]);
       const users = await getUsers();
       set({ posts, tags, users });
       const tablePosts = mapPostsToTablePosts(posts);
@@ -83,10 +85,12 @@ export const postStore = create<State & Actions>((set) => ({
       set({ loading: false });
     }
   },
-  getPosts: async () => {
+  getPosts: async ({user}: {user: User}) => {
     try {
       set({ loading: true });
-      const posts = await getPosts();
+      const posts = await getPosts({
+        userId: user.role === Role.ADMIN ? undefined : user.id,
+      });
       set({ posts });
       set({ tablePosts: mapPostsToTablePosts(posts) });
     } catch (error) {

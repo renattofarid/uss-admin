@@ -1,11 +1,12 @@
 import ModalPost from "./components/ModalPost"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Post} from "@/services/posts"
 import { DataTable } from "@/components/DataTable/DataTable"
 import { ExtraColumn } from "@/types/columns"
 import { DeleteIcon, EditIcon } from "@/components/DataTable/TableIcons"
 import { postStore } from "./store/PostStore"
+import { AuthContext } from "@/context/AuthContext"
 
 const columns = [
     {
@@ -37,8 +38,9 @@ const columns = [
 
 function PostsPage() {
     const { open, setOpen, getData, tablePosts, loading, setPostSelected } = postStore()
+    const { user } = useContext(AuthContext) 
     useEffect(() => {
-        getData();
+        getData({user: user!});
     }, [])
 
     const extraColumns: ExtraColumn[] = [
