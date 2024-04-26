@@ -96,9 +96,13 @@ export const DashboardLayout = ({
                             <div
                                 className="w-8 h-8 rounded-full bg-[#EB6F25] flex items-center justify-center text-white text-sm font-bold leading-[140%] tracking-[0.2px]">
                                 {/* {{ getInitialsName }} */}
-                                RP
+                                {/* RP */}
+                                {user?.name.charAt(0).toUpperCase()}
                             </div>
-                            <div className="text-[#111827] dark:text-white text-xs font-bold leading-[140%]"> Renatto Perleche </div>
+                            <div className="text-[#111827] dark:text-white text-xs font-bold leading-[140%]">
+                                {/* Renatto Perleche */}
+                                {user?.name}
+                            </div>
                             {/* <Button size='icon' variant="ghost" onClick={() => { darkMode.toggle() }}>
                                 {darkMode.value ? (
                                     <i className="fa-solid fa-toggle-on text-xl"></i>
