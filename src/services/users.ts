@@ -33,3 +33,7 @@ export const updateUser = async (id: string, body: UserBodyRequest): Promise<Use
   const { data } = await api.put(`/users/${id}`, body);
   return data as User;
 }
+
+export const deleteUser = async (id: string): Promise<void> => {
+  await api.delete(`/users/${id}`);
+}

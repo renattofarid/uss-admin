@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { User } from "@/services/users"
 import { DataTable } from "@/components/DataTable/DataTable"
 import { ExtraColumn } from "@/types/columns"
-import { EditIcon } from "@/components/DataTable/TableIcons"
+import { DeleteIcon, EditIcon } from "@/components/DataTable/TableIcons"
 import { UserStore } from "./store/UserStore"
 
 const columns = [
@@ -42,10 +42,10 @@ function UsersPage() {
                             onClick={() => setUserSelected(row, 'edit')}>
                             <EditIcon />
                         </Button>
-                        {/* <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
-                            onClick={async () => setUserSelected(row.id, 'delete')}>
+                        <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
+                            onClick={async () => setUserSelected(row, 'delete')}>
                             <DeleteIcon />
-                        </Button> */}
+                        </Button>
                     </div>
                 )
             }

@@ -1,5 +1,6 @@
-import { User, UserBodyRequest, createUser, updateUser, getUsers } from "@/services/users";
+import { User, UserBodyRequest, createUser, updateUser, getUsers, deleteUser } from "@/services/users";
 import { ActionsTypes } from "@/types/general";
+import { toast } from "sonner";
 import { create } from "zustand";
 
 interface TableUsers {
@@ -24,6 +25,7 @@ type Actions = {
   setUserSelected: (user: User | null, action: ActionsTypes) => void;
   crtUser: (body: UserBodyRequest) => Promise<void>;
   updUser: (id: string, body: UserBodyRequest) => Promise<void>;
+  delUser: (id: string) => Promise<void>;
   setLoading: (loading: boolean) => void;
   setOpen: (open: boolean) => void;
 };
@@ -100,6 +102,21 @@ export const UserStore = create<State & Actions>((set) => ({
       set({ open: false });
     } catch (error) {
       console.error("Ocurrió un error inesperado, intente nuevamente", error);
+    } finally {
+      set({ loading: false });
+    }
+  },
+  delUser: async (id) => {
+    try {
+      set({ loading: true });
+      await deleteUser(id);
+      const updatedUsers = UserStore.getState().users.filter((User) => User.id !== id);
+      set({ users: updatedUsers });
+      set({ tableUsers: mapUsersToTableUsers(updatedUsers) });
+      set({ open: false });
+    } catch (error) {
+      console.error("Ocurrió un error inesperado, intente nuevamente", error);
+      toast.error("Ocurrió un error inesperado, intente nuevamente");
     } finally {
       set({ loading: false });
     }
