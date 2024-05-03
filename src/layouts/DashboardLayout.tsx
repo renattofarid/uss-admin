@@ -3,7 +3,6 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider"
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { cn } from "@/lib/utils";
 import { Role, User } from "@/services/users";
 
@@ -80,25 +79,22 @@ export const DashboardLayout = ({
                     </div>
                 </div>
 
-                <button
-                    className="py-[15px] px-[24px] rounded-[10px] border border-[#111827] dark:border-white self-stretch text-sm text-[#111827] dark:text-white font-bold leading-[160%] tracking-[0.2px] hover:bg-[#ffe1e1] hover:dark:bg-slate-900 transition duration-500 ease-in-out"
-                    onClick={logout}>
-                    Salir
-                </button>
-            </div>
-
-            {/* <!-- Content Principal --> */}
-            <div className="flex-1 flex flex-col overflow-hidden h-screen bg-red-400 overflow-y-scroll">
-                {/* <!-- Navbar --> */}
-                <header className="bg-white dark:bg-black h-[96px] py-6 px-8 border-b border-[#E9EAEC]">
-                    <div className="flex items-center justify-end p-4 gap-2">
-                        <div
-                            className="w-8 h-8 rounded-full bg-[#EB6F25] flex items-center justify-center text-white text-sm font-bold leading-[140%] tracking-[0.2px]">
-                            {/* {{ getInitialsName }} */}
-                            RP
-                        </div>
-                        <div className="text-[#111827] dark:text-white text-xs font-bold leading-[140%]"> Renatto Perleche </div>
-                        {/* <Button size='icon' variant="ghost" onClick={() => { darkMode.toggle() }}>
+                {/* <!-- Content Principal --> */}
+                <div className="flex-1 flex flex-col overflow-hidden h-screen bg-red-400 overflow-y-scroll">
+                    {/* <!-- Navbar --> */}
+                    <header className="bg-white dark:bg-black h-[96px] py-6 px-8 border-b border-[#E9EAEC]">
+                        <div className="flex items-center justify-end p-4 gap-2">
+                            <div
+                                className="w-8 h-8 rounded-full bg-[#EB6F25] flex items-center justify-center text-white text-sm font-bold leading-[140%] tracking-[0.2px]">
+                                {/* {{ getInitialsName }} */}
+                                {/* RP */}
+                                {user?.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div className="text-[#111827] dark:text-white text-xs font-bold leading-[140%]">
+                                {/* Renatto Perleche */}
+                                {user?.name}
+                            </div>
+                            {/* <Button size='icon' variant="ghost" onClick={() => { darkMode.toggle() }}>
                                 {darkMode.value ? (
                                     <i className="fa-solid fa-toggle-on text-xl"></i>
                                 ) : (
@@ -108,6 +104,7 @@ export const DashboardLayout = ({
                         <ModeToggle />
                     </div>
                 </header>
+                </div>
 
                 {/* <!-- App --> */}
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#fafafa] dark:bg-[#2c2c2c] pt-8">

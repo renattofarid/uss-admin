@@ -73,7 +73,8 @@ export const AuthorityStore = create<State & Actions>((set) => ({
     }
   },
   setAuthoritySelected(Authority, action) {
-    const authoritySelected = AuthorityStore.getState().authorities.find((Authority) => Authority.id === Authority?.id);
+    const id = Authority?.id;
+    const authoritySelected = AuthorityStore.getState().authorities.find((Authority) => Authority.id === id);
     set({ authoritySelected, action, open: !!Authority?.id ?? false });
   },
   crtAuthority: async (body) => {
