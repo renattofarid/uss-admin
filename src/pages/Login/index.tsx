@@ -10,8 +10,8 @@ function Landing() {
   const { login, isLoading } = useContext(AuthContext);
 
   const [formValues, setFormValues] = useState({
-    email: 'admin@uss.com',
-    password: 'password',
+    email: '',
+    password: '',
   });
   const navigate = useNavigate();
 

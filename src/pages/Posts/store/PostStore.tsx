@@ -76,7 +76,7 @@ export const postStore = create<State & Actions>((set) => ({
         userId: user.role === Role.ADMIN ? undefined : user.id,
       }), getTags()]);
       const users = await getUsers();
-      set({ posts, tags, users });
+      set({ posts, tags, users: user.role === Role.ADMIN ? users : users.filter((u) => u.id === user.id)});
       const tablePosts = mapPostsToTablePosts(posts);
       set({ tablePosts });
     } catch (error) {
