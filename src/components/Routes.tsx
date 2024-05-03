@@ -5,11 +5,35 @@ import { Login, Posts } from '@/pages'
 import { SpinnerSplash } from './SpinnerSplash'
 import { DashboardLayout } from '@/layouts/DashboardLayout'
 import { PostProvider } from '@/pages/Posts/context/PostContext'
-import { UserProvider } from '@/pages/Users/context/UserContext'
 import UsersPage from '@/pages/Users'
 import HomePosts from '@/pages/Home'
 import AuthoritiesPage from '@/pages/Authorities'
+import { Role, User } from '@/services/users'
 
+const routes = [
+  {
+    path: 'usuarios',
+    label: 'Usuarios',
+    redirectTo: '/usuarios',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: UsersPage,
+  },
+  {
+    path: 'home',
+    label: 'Home Posts',
+    redirectTo: '/home',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: HomePosts,
+  },
+  {
+    path: 'autoridades',
+    label: 'Autoridades',
+    redirectTo: '/autoridades',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: AuthoritiesPage,
+  },
+
+]
 
 export const RoutesApp = () => {
   const { authenticate, isAuthenticating, user } = useContext(AuthContext)
@@ -37,17 +61,18 @@ export const RoutesApp = () => {
                 <Posts />
               </PostProvider>
             } />
-            <Route path="usuarios" element={
-              <UserProvider>
-                <UsersPage />
-              </UserProvider>
-            } />
-            <Route path="home" element={
-              <HomePosts />
-            } />
-            <Route path="autoridades" element={
-              <AuthoritiesPage />
-            } />
+            {routes.map((route, index) => {
+              if (!route.hasAccess(user!)) return null;
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    <route.component />
+                  }
+                />
+              )
+            })}
           </>
         </Route>
         )}

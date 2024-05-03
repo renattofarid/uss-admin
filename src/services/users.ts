@@ -35,5 +35,5 @@ export const updateUser = async (id: string, body: UserBodyRequest): Promise<Use
 }
 
 export const deleteUser = async (id: string): Promise<void> => {
-  await api.delete(`/users/${id}`);
+  await api.post(`/users/${id}/toggle-active-state`);
 }

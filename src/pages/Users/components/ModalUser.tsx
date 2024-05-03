@@ -83,12 +83,13 @@ function ModalUser() {
             await updUser(userSelected.id, data)
             setUserSelected(null, 'none')
             setOpen(false)
-            toast('User actualizado correctamente')
+            toast.success('Usuario actualizado correctamente')
             return
         }
         if (action === 'delete') {
             if (!userSelected) return
-            return await delUser(userSelected.id)
+            await delUser(userSelected.id)
+            toast.success('Usuario eliminado correctamente')
         }
     })
     return (
