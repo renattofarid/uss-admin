@@ -38,6 +38,7 @@ function ModalAuthority() {
             hierachy: 0,
             imageUrl: '',
             position: '',
+            socialMedia: []
         }
     })
     useEffect(() => {
@@ -178,6 +179,22 @@ function ModalAuthority() {
                                 />
                                 {errors.position &&
                                     <span className="text-red-600 text-xs">{errors.position.message}</span>
+                                }
+                            </div>
+                            <div className="flex flex-col items-start gap-2">
+                                <Label htmlFor="linkedin" className="text-right">
+                                    LinkedIn
+                                </Label>
+                                <Input
+                                    id="linkedin"
+                                    value={watch('socialMedia.0')}
+                                    disabled={loading}
+                                    className="col-span-3"
+                                    placeholder="LinkedIn"
+                                    {...register('socialMedia.0')}
+                                />
+                                {errors.socialMedia &&
+                                    <span className="text-red-600 text-xs">{errors.socialMedia.message}</span>
                                 }
                             </div>
                             <div className="flex flex-col items-start gap-2">
