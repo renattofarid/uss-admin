@@ -55,7 +55,7 @@ function Landing() {
         </h1>
 
         <p className="mt-3 text-sm text-green-500 font-extrabold">
-          INGRESE SUS CREDENCIALES
+          INGRESE SUS CREDENCIALES A DEVELOP
         </p>
 
         <div>
