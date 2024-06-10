@@ -32,6 +32,12 @@ const routes = [
         redirectTo: '/autoridades',
         hasAccess: (user: User) => user.role === Role.ADMIN,
     },
+    {
+        path: ['/escuelas'],
+        label: 'Escuelas',
+        redirectTo: '/escuelas',
+        hasAccess: (user: User) => user.role === Role.ADMIN,
+    },
 ]
 interface ProtectedRouteProps {
     children?: JSX.Element;

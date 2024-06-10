@@ -9,6 +9,7 @@ import UsersPage from '@/pages/Users'
 import HomePosts from '@/pages/Home'
 import AuthoritiesPage from '@/pages/Authorities'
 import { Role, User } from '@/services/users'
+import SchoolsPage from '@/pages/Schools'
 
 const routes = [
   {
@@ -31,6 +32,13 @@ const routes = [
     redirectTo: '/autoridades',
     hasAccess: (user: User) => user.role === Role.ADMIN,
     component: AuthoritiesPage,
+  },
+  {
+    path: 'escuelas',
+    label: 'Escuelas',
+    redirectTo: '/escuelas',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: SchoolsPage,
   },
 
 ]
