@@ -10,6 +10,12 @@ import HomePosts from '@/pages/Home'
 import AuthoritiesPage from '@/pages/Authorities'
 import { Role, User } from '@/services/users'
 import SchoolsPage from '@/pages/Schools'
+import ProfessorsPage from '@/pages/Professors'
+import TrainingsPage from '@/pages/Trainings'
+import RequestsPage from '@/pages/Requests'
+import CompetenciesPage from '@/pages/Competencies'
+import SearchByDocument from '@/pages/Trainings/components/searchByDocument/page'
+import StatiticsPage from '@/pages/Trainings/views/StatiticsPage'
 
 const routes = [
   {
@@ -39,6 +45,48 @@ const routes = [
     redirectTo: '/escuelas',
     hasAccess: (user: User) => user.role === Role.ADMIN,
     component: SchoolsPage,
+  },
+  {
+    path: 'profesores',
+    label: 'Profesores',
+    redirectTo: '/profesores',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: ProfessorsPage,
+  },
+  {
+    path: 'competencias',
+    label: 'Competencias',
+    redirectTo: '/competencias',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: CompetenciesPage,
+  },
+  {
+    path: 'capacitaciones',
+    label: 'Capacitaciones',
+    redirectTo: '/capacitaciones',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: TrainingsPage,
+  },
+  {
+    path: 'solicitudes',
+    label: 'Solicitudes',
+    redirectTo: '/solicitudes',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: RequestsPage,
+  },
+  {
+    path: 'capacitaciones-documento',
+    label: 'Capacitaciones por Documento',
+    redirectTo: '/capacitaciones-documento',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: SearchByDocument,
+  },
+  {
+    path: 'capacitaciones-reportes',
+    label: 'Estadísticas de Capacitaciones',
+    redirectTo: '/capacitaciones-reportes',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: StatiticsPage,
   },
 
 ]

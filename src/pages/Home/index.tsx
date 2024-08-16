@@ -46,12 +46,12 @@ function HomePosts() {
             >
               <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
               >
-                {homePosts['editorial'][0].post.imageUrl && (
-                  <img src={homePosts['editorial'][0].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                {homePosts['editorial'][0]?.post?.imageUrl && (
+                  <img src={homePosts['editorial'][0]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                 )}
                 <div>
-                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['editorial'][0].post.title}</h1>
-                  <p className={'text-xs text-black my-5'}>{homePosts['editorial'][0].post.description?.slice(0, 20)}...</p>
+                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['editorial'][0]?.post?.title || ''}</h1>
+                  <p className={'text-xs text-black my-5'}>{homePosts['editorial'][0]?.post?.description?.slice(0, 20)}...</p>
                 </div>
               </div>
             </div>
@@ -61,12 +61,12 @@ function HomePosts() {
             >
               <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
               >
-                {homePosts['section-1'][0].post.imageUrl && (
-                  <img src={homePosts['section-1'][0].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                {homePosts['section-1'][0]?.post?.imageUrl && (
+                  <img src={homePosts['section-1'][0]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                 )}
                 <div>
-                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-1'][0].post.title}</h1>
-                  <p className={'text-xs text-black my-5'}>{homePosts['section-1'][0].post.description?.slice(0, 20)}...</p>
+                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-1'][0]?.post?.title}</h1>
+                  <p className={'text-xs text-black my-5'}>{homePosts['section-1'][0]?.post?.description?.slice(0, 20)}...</p>
                 </div>
               </div>
             </div>
@@ -76,12 +76,12 @@ function HomePosts() {
             >
               <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
               >
-                {homePosts['section-1'][1].post.imageUrl && (
-                  <img src={homePosts['section-1'][1].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                {homePosts['section-1'][1]?.post?.imageUrl && (
+                  <img src={homePosts['section-1'][1]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                 )}
                 <div>
-                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-1'][1].post.title}</h1>
-                  <p className={'text-xs text-black my-5'}>{homePosts['section-1'][1].post.description?.slice(0, 20)}...</p>
+                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-1'][1]?.post?.title}</h1>
+                  <p className={'text-xs text-black my-5'}>{homePosts['section-1'][1]?.post?.description?.slice(0, 20)}...</p>
                 </div>
               </div>
             </div>
@@ -92,12 +92,12 @@ function HomePosts() {
             >
               <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
               >
-                {homePosts['section-1'][2].post.imageUrl && (
-                  <img src={homePosts['section-1'][2].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                {homePosts['section-1'][2]?.post?.imageUrl && (
+                  <img src={homePosts['section-1'][2]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                 )}
                 <div>
-                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-1'][2].post.title}</h1>
-                  <p className={'text-xs text-black my-5'}>{homePosts['section-1'][2].post.description?.slice(0, 20)}...</p>
+                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-1'][2]?.post?.title}</h1>
+                  <p className={'text-xs text-black my-5'}>{homePosts['section-1'][2]?.post?.description?.slice(0, 20)}...</p>
                 </div>
               </div>
             </div>
@@ -107,12 +107,12 @@ function HomePosts() {
             >
               <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
               >
-                {homePosts['section-1'][3].post.imageUrl && (
-                  <img src={homePosts['section-1'][3].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                {homePosts['section-1'][3]?.post?.imageUrl && (
+                  <img src={homePosts['section-1'][3]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                 )}
                 <div>
-                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-1'][3].post.title}</h1>
-                  <p className={'text-xs text-black my-5'}>{homePosts['section-1'][3].post.description?.slice(0, 20)}...</p>
+                  <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-1'][3]?.post?.title}</h1>
+                  <p className={'text-xs text-black my-5'}>{homePosts['section-1'][3]?.post?.description?.slice(0, 20)}...</p>
                 </div>
               </div>
             </div>
@@ -129,12 +129,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-2'][0].post.imageUrl && (
-                    <img src={homePosts['section-2'][0].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-2'][0]?.post?.imageUrl && (
+                    <img src={homePosts['section-2'][0]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][0].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][0].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][0]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][0]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -146,12 +146,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-2'][1].post.imageUrl && (
-                    <img src={homePosts['section-2'][1].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-2'][1]?.post?.imageUrl && (
+                    <img src={homePosts['section-2'][1]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][1].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][1].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][1]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][1]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -163,12 +163,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-2'][2].post.imageUrl && (
-                    <img src={homePosts['section-2'][2].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-2'][2]?.post?.imageUrl && (
+                    <img src={homePosts['section-2'][2]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][2].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][2].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][2]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][2]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -181,12 +181,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-2'][3].post.imageUrl && (
-                    <img src={homePosts['section-2'][3].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-2'][3]?.post?.imageUrl && (
+                    <img src={homePosts['section-2'][3]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][3].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][3].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][3]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][3]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -198,12 +198,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-2'][4].post.imageUrl && (
-                    <img src={homePosts['section-2'][4].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-2'][4]?.post?.imageUrl && (
+                    <img src={homePosts['section-2'][4]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][4].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][4].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][4]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][4]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -215,12 +215,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-2'][5].post.imageUrl && (
-                    <img src={homePosts['section-2'][5].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-2'][5]?.post?.imageUrl && (
+                    <img src={homePosts['section-2'][5]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][5].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][5].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][5]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][5]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -232,12 +232,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-2'][6].post.imageUrl && (
-                    <img src={homePosts['section-2'][6].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-2'][6]?.post?.imageUrl && (
+                    <img src={homePosts['section-2'][6]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][6].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][6].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-2'][6]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-2'][6]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -255,12 +255,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-3'][0].post.imageUrl && (
-                    <img src={homePosts['section-3'][0].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-3'][0]?.post?.imageUrl && (
+                    <img src={homePosts['section-3'][0]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][0].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][0].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][0]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][0]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -272,12 +272,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-3'][1].post.imageUrl && (
-                    <img src={homePosts['section-3'][1].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-3'][1]?.post?.imageUrl && (
+                    <img src={homePosts['section-3'][1]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][1].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][1].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][1]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][1]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -290,12 +290,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-3'][2].post.imageUrl && (
-                    <img src={homePosts['section-3'][2].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-3'][2]?.post?.imageUrl && (
+                    <img src={homePosts['section-3'][2]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][2].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][2].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][2]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][2]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -307,12 +307,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-3'][3].post.imageUrl && (
-                    <img src={homePosts['section-3'][3].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-3'][3]?.post?.imageUrl && (
+                    <img src={homePosts['section-3'][3]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][3].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][3].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][3]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][3]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -324,12 +324,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-3'][4].post.imageUrl && (
-                    <img src={homePosts['section-3'][4].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-3'][4]?.post?.imageUrl && (
+                    <img src={homePosts['section-3'][4]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][4].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][4].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][4]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][4]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -341,12 +341,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-3'][5].post.imageUrl && (
-                    <img src={homePosts['section-3'][5].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-3'][5]?.post?.imageUrl && (
+                    <img src={homePosts['section-3'][5]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][5].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][5].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-3'][5]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-3'][5]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -364,12 +364,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-4'][0].post.imageUrl && (
-                    <img src={homePosts['section-4'][0].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-4'][0]?.post?.imageUrl && (
+                    <img src={homePosts['section-4'][0]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-4'][0].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-4'][0].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-4'][0]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-4'][0]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>
@@ -381,12 +381,12 @@ function HomePosts() {
               >
                 <div className={'bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm rounded-md shadow-lg p-1 h-fit'}
                 >
-                  {homePosts['section-4'][1].post.imageUrl && (
-                    <img src={homePosts['section-4'][1].post.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
+                  {homePosts['section-4'][1]?.post?.imageUrl && (
+                    <img src={homePosts['section-4'][1]?.post?.imageUrl} alt="" className={'w-full h-2/4 aspect-square object-cover'} />
                   )}
                   <div>
-                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-4'][1].post.title}</h1>
-                    <p className={'text-xs text-black my-5'}>{homePosts['section-4'][1].post.description?.slice(0, 20)}...</p>
+                    <h1 className={'text-xl lg:text-2xl font-thin break-words my-3'}>{homePosts['section-4'][1]?.post?.title}</h1>
+                    <p className={'text-xs text-black my-5'}>{homePosts['section-4'][1]?.post?.description?.slice(0, 20)}...</p>
                   </div>
                 </div>
               </div>

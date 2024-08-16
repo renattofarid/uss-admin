@@ -4,4 +4,6 @@ export type ActionsTypes =
   | "delete"
   | "view"
   | "list"
+  | "accept"
+  | "reject"
   | "none";

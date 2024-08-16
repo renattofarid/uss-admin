@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { Category } from "@/services/posts";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -14,3 +15,24 @@ export const OPTIONS_CATEGORY = [
   { value: Category.PODCAST, label: "Podcast" },
   { value: Category.EDITORIAL, label: "Editorial" },
 ];
+
+export function formatHour(date: string) {
+  return DateTime.fromISO(date).toFormat("HH:mm");
+}
+
+export function formatDateLong(date: string) {
+  return DateTime.fromISO(date, { locale: "es" }).toFormat(
+    "dd 'de' MMMM 'del' yyyy"
+  );
+}
+
+// export function formatDateTimeRange(from: string, to: string) {
+//   return `${formatDateLong(from)}, ${formatHour(from)} - ${formatHour(to)}`;
+// }
+export function formatDateTimeRange(from: string, to: string) {
+  const date = formatDateLong(from);
+
+  const time = `${formatHour(from)} - ${formatHour(to)}`;
+
+  return { date, time };
+}
