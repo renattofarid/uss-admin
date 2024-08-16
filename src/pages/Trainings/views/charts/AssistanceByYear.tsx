@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { TrendingUp } from "lucide-react"
-import { Cell, Label, LabelList, Pie, PieChart } from "recharts"
+import { Label, Pie, PieChart } from "recharts"
 
 import {
   Card,
@@ -34,8 +33,6 @@ const chartConfig = {
     color: "hsl(var(--chart-3))",
   },
 } satisfies ChartConfig
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', /* más colores según necesites */];
 
 export function AssistanceByYear() {
   // const totalVisitors = React.useMemo(() => {

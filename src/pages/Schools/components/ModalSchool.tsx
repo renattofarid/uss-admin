@@ -9,7 +9,7 @@ import { SchoolStore } from "../store/SchoolStore";
 import { Input } from "@/components/ui/input";
 
 function ModalSchool() {
-    const { setOpen, action, loading, open, SchoolSelected, setSchoolSelected, crtSchool, updSchool, setLoading, delSchool } = SchoolStore()
+    const { setOpen, action, loading, open, SchoolSelected, setSchoolSelected, crtSchool, updSchool, delSchool } = SchoolStore()
 
     const title = () => {
         switch (action) {
@@ -30,7 +30,6 @@ function ModalSchool() {
         handleSubmit,
         formState: { errors },
         watch,
-        setValue,
     } = useForm<SchoolBodyRequest>({
         defaultValues: {
             name: '',

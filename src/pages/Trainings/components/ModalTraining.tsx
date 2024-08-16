@@ -298,7 +298,7 @@ function ModalTraining() {
                                                     })}
                                                 />
                                                 {errors?.executions?.[index]?.from &&
-                                                    <span className="text-red-600 text-xs">{errors?.executions?.[index]?.from.message}</span>
+                                                    <span className="text-red-600 text-xs">{errors?.executions?.[index]?.from?.message}</span>
                                                 }
                                             </div>
                                             <div className="flex flex-col gap-1">
@@ -316,7 +316,7 @@ function ModalTraining() {
                                                     })}
                                                 />
                                                 {errors?.executions?.[index]?.to &&
-                                                    <span className="text-red-600 text-xs">{errors?.executions?.[index]?.to.message}</span>
+                                                    <span className="text-red-600 text-xs">{errors?.executions?.[index]?.to?.message}</span>
                                                 }
                                             </div>
                                             <div className="flex flex-col gap-1">
@@ -334,7 +334,7 @@ function ModalTraining() {
                                                     })}
                                                 />
                                                 {errors?.executions?.[index]?.place &&
-                                                    <span className="text-red-600 text-xs">{errors?.executions?.[index]?.place.message}</span>
+                                                    <span className="text-red-600 text-xs">{errors?.executions?.[index]?.place?.message}</span>
                                                 }
                                             </div>
                                             {/* Eliminar fila */}
