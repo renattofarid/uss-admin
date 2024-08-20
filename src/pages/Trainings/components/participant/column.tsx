@@ -95,17 +95,23 @@ export const columns: ColumnDef<Participant>[] = [
             return (
                 // Descargar certificado
                 <div className="flex gap-y-1">
-                    {participant.certificate && (
-                        <Button
-                            disabled={loading}
-                            size={"sm"}
-                            onClick={() => {
-                                if (!participant) return
-                                downloadCertificate(participant)
-                            }}
-                        >
-                            <span className="text-xs">Descargar certificado</span>
-                        </Button>
+                    {participant.certificates && (
+                        <div className="flex flex-row gap-1">
+                            {participant.certificates.map((certificate) => (
+                            <Button
+                                key={certificate.id}
+                                disabled={loading}
+                                size={"sm"}
+                                className="bg-blue-500 hover:bg-blue-500 hover:bg-opacity-80"
+                                onClick={() => {
+                                    if (!participant) return
+                                    downloadCertificate(certificate)
+                                }}
+                            >
+                                <span className="text-xs">Certificado {MapRoleInscription[certificate.role]}</span>
+                            </Button>
+                        ))}
+                        </div>
                     )}
                     {participant.attendanceStatus === AttendanceStatus.PENDING && (
                         <Button

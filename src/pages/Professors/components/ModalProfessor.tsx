@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { ProfessorBodyRequest, ProfessorDocumentType } from "@/services/professors";
+import { MapProfessorEmploymentType, ProfessorBodyRequest, ProfessorDocumentType, ProfessorEmploymentType } from "@/services/professors";
 import { useEffect } from "react";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -104,7 +104,7 @@ function ModalProfessor() {
                         </div>
                     )}
                     {(action === 'create' || action === 'edit') && (
-                        <>
+                        <div className="pb-6 flex flex-col gap-2">
                             <div className="flex flex-col items-start gap-2">
                                 <Label htmlFor="title" className="text-right">
                                     Nombre
@@ -183,6 +183,42 @@ function ModalProfessor() {
                                 }
                             </div>
                             <div className="flex flex-col items-start gap-2">
+                                <Label htmlFor="modality" className="text-right">
+                                    Tipo
+                                </Label>
+                                <Select
+                                    options={
+                                        Object.values(ProfessorEmploymentType).map((type) => ({
+                                            value: type,
+                                            label: MapProfessorEmploymentType[type]
+                                        }))
+                                    }
+                                    {...register("employmentType", {
+                                        required: {
+                                            value: true,
+                                            message: "Tipo es requerido.",
+                                        },
+                                    })}
+                                    value={watch('employmentType') as any &&
+                                    {
+                                        value: watch('employmentType'),
+                                        label: MapProfessorEmploymentType[watch('employmentType')]
+                                    }
+                                    }
+                                    isDisabled={loading}
+                                    className="w-full col-span-3 z-[100]"
+                                    onChange={(option) => {
+                                        setValue('employmentType', option?.value)
+                                        setError('employmentType', {
+                                            type: 'disabled'
+                                        })
+                                    }}
+                                />
+                                {errors.employmentType &&
+                                    <span className="text-red-600 text-xs">{errors.employmentType.message}</span>
+                                }
+                            </div>
+                            <div className="flex flex-col items-start gap-2">
                                 <Label htmlFor="category" className="text-right">
                                     Escuela
                                 </Label>
@@ -201,10 +237,10 @@ function ModalProfessor() {
                                     })}
                                     value={watch('schoolId') as any &&
                                         schools.find((school) => school.id === watch('schoolId')) &&
-                                        {
-                                            value: watch('schoolId'),
-                                            label: schools.find((school) => school.id === watch('schoolId'))?.name
-                                        }
+                                    {
+                                        value: watch('schoolId'),
+                                        label: schools.find((school) => school.id === watch('schoolId'))?.name
+                                    }
                                     }
                                     isDisabled={loading}
                                     className="w-full col-span-3 z-[99]"
@@ -219,7 +255,7 @@ function ModalProfessor() {
                                     <span className="text-red-600 text-xs">{errors.schoolId.message}</span>
                                 }
                             </div>
-                        </>
+                        </div>
                     )}
                     <DialogFooter>
                         <Button

@@ -1,4 +1,4 @@
-import { Training, TrainingBodyRequest, createTraining, updateTraining, getTrainings, deleteTraining, MapTrainingModality, MapTrainingStatus, Participant, getParticipants, completeStatusOfParticipant } from "@/services/trainings";
+import { Training, TrainingBodyRequest, createTraining, updateTraining, getTrainings, deleteTraining, MapTrainingModality, MapTrainingStatus, Participant, getParticipants, completeStatusOfParticipant, MapTypeTraining, Certificate, MapRoleInscription } from "@/services/trainings";
 import { ActionsTypes } from "@/types/general";
 import { ErrorType } from "@/utils/types";
 import { AxiosError } from "axios";
@@ -16,6 +16,7 @@ interface TableTrainings {
   competency: string;
   status: string;
   modality: string;
+  type: string;
 }
 type State = {
   trainings: Training[];
@@ -39,7 +40,7 @@ type Actions = {
   setLoading: (loading: boolean) => void;
   setOpen: (open: boolean) => void;
   getParticipantsByTraining: () => Promise<void>;
-  downloadCertificate: (participant: Participant) => Promise<void>;
+  downloadCertificate: (participant: Certificate) => Promise<void>;
   verifyAttendance: (participant: Participant) => Promise<void>;
   searchParticipants: (search: string) => void;
 };
@@ -53,6 +54,7 @@ const mapTrainingsToTableTrainings = (trainings: Training[], competencies: any):
     modality: MapTrainingModality[training.modality],
     organizer: training.organizer === "DDA" ? "DDA" : training.organizer.name,
     status: MapTrainingStatus[training.status],
+    type: MapTypeTraining[training.type],
   }));
 }
 
@@ -70,7 +72,8 @@ export const TrainingStore = create<State & Actions>((set) => ({
   getData: async () => {
     try {
       set({ loading: true });
-      const [trainings, competencies] = await Promise.all([getTrainings(), getCompetencys()]);
+      const competencies = await getCompetencys();
+      const trainings = await getTrainings();
       set({ trainings });
       set({ competencies });
       const tableTrainings = mapTrainingsToTableTrainings(trainings, competencies);
@@ -157,11 +160,11 @@ export const TrainingStore = create<State & Actions>((set) => ({
       set({ loading: false });
     }
   },
-  downloadCertificate: async (participant: Participant) => {
+  downloadCertificate: async (certificate: Certificate) => {
     try {
       set({ loading: true });
-      if (!participant.certificate) return;
-      const response = await fetch(participant.certificate?.url);
+      if (!certificate) return;
+      const response = await fetch(certificate?.url);
       console.log({ response })
       const blob = await response.blob();
 
@@ -170,7 +173,7 @@ export const TrainingStore = create<State & Actions>((set) => ({
       const a = document.createElement("a");
       a.style.display = "none";
       a.href = urlBlob;
-      a.download = "Certificado.pdf"; // Nombre del archivo descargado
+      a.download = `Certificado ${MapRoleInscription[certificate.role]}.pdf`; // Nombre del archivo descargado
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(urlBlob);

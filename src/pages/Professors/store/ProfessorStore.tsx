@@ -1,4 +1,4 @@
-import { Professor, ProfessorBodyRequest, createProfessor, updateProfessor, getProfessors, deleteProfessor } from "@/services/professors";
+import { Professor, ProfessorBodyRequest, createProfessor, updateProfessor, getProfessors, deleteProfessor, MapProfessorEmploymentType } from "@/services/professors";
 import { ActionsTypes } from "@/types/general";
 import { toast } from "sonner";
 import { create } from "zustand";
@@ -9,6 +9,7 @@ interface TableProfessors {
   documentNumber: number;
   email: string;
   name: string;
+  employmentType: string;
 }
 type State = {
   professors: Professor[];
@@ -36,6 +37,7 @@ const mapProfessorsToTableProfessors = (Professors: Professor[]): TableProfessor
     id: Professor.id,
     documentNumber: Professor.documentNumber,
     email: Professor.email,
+    employmentType: MapProfessorEmploymentType[Professor.employmentType],
   }));
 }
 
@@ -63,7 +65,7 @@ export const ProfessorStore = create<State & Actions>((set) => ({
   setProfessorSelected(Professor, action) {
     const id = Professor?.id;
     const ProfessorSelected = ProfessorStore.getState().professors.find((Professor) => Professor.id === id);
-    set({ professorSelected: ProfessorSelected, action, open: !!Professor?.id ?? false });
+    set({ professorSelected: ProfessorSelected, action, open: !!id });
   },
   crtProfessor: async (body) => {
     try {

@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { MapTrainingModality, SingleTraining } from "@/services/trainings"
+import { MapRoleInscription, MapTrainingModality, SingleTraining } from "@/services/trainings"
 import { ColumnDef } from "@tanstack/react-table"
 import { SearchTrainingStore } from "../../store/SearchTrainingStore"
 
@@ -32,7 +32,7 @@ export const columns: ColumnDef<SingleTraining>[] = [
         header: "Estado",
         cell: (props) => {
             const { participant } = props.row.original
-            return participant.certificate ? "Aprobado" : "Pendiente"
+            return participant.certificates.length ? "Aprobado" : "Pendiente"
         },
     },
     {
@@ -41,19 +41,29 @@ export const columns: ColumnDef<SingleTraining>[] = [
             const { participant } = row.original
             const { downloadCertificate } = SearchTrainingStore()
 
-            if (!participant.certificate) return <></>
+            if (!participant.certificates.length) return <></>
 
             return (
                 // Descargar certificado
-                <Button
-                    size={"sm"}
-                    onClick={() => {
-                        if (!participant) return
-                        downloadCertificate(participant)
-                    }}
-                >
-                    <span className="text-xs">Descargar certificado</span>
-                </Button>
+                <>
+                    {participant.certificates && (
+                        <div className="flex flex-row gap-1">
+                            {participant.certificates.map((certificate) => (
+                                <Button
+                                    key={certificate.id}
+                                    size={"sm"}
+                                    className="bg-blue-500 hover:bg-blue-500 hover:bg-opacity-80"
+                                    onClick={() => {
+                                        if (!participant) return
+                                        downloadCertificate(certificate)
+                                    }}
+                                >
+                                    <span className="text-xs">Certificado {MapRoleInscription[certificate.role]}</span>
+                                </Button>
+                            ))}
+                        </div>
+                    )}
+                </>
             )
         },
     },

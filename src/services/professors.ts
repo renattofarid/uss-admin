@@ -5,6 +5,16 @@ export enum ProfessorDocumentType {
   PASSPORT = "passport",
   FOREIGNER_CARD = "foreigner_card",
 }
+
+export enum ProfessorEmploymentType {
+  FULL_TIME = "full_time",
+  PART_TIME = "part_time",
+}
+
+export const MapProfessorEmploymentType = {
+  [ProfessorEmploymentType.FULL_TIME]: "Tiempo completo",
+  [ProfessorEmploymentType.PART_TIME]: "Medio tiempo",
+};
 export interface Professor {
   name: string;
   email: string;
@@ -13,11 +23,13 @@ export interface Professor {
   schoolId: string;
   createdAt: string;
   id: string;
+  employmentType: ProfessorEmploymentType;
 }
 export interface ProfessorBodyRequest {
   name: string;
   email: string;
   documentType: ProfessorDocumentType;
+  employmentType: ProfessorEmploymentType;
   documentNumber: number;
   schoolId: string;
 }

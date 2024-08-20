@@ -1,13 +1,13 @@
-import { getProfessorParticipationBySchool, SchoolStatitic } from "@/services/reports"
+import { getTrainingByCompetency, TrainingsByCompetency } from "@/services/reports"
 import React, { useState } from "react"
-import { DataTableAssistanceBySchool } from "./table"
+import { CompetencyTrainingDataTable } from "./table"
 import { columns } from "./columns"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { SemesterStore } from "@/pages/Semesters/store/SemesterStore"
 import { Semester } from "@/services/semesters"
 
-function AssistanceBySchool() {
-  const [data, setData] = useState<SchoolStatitic[]>([])
+function TrainingsByCompetencyPage() {
+  const [data, setData] = useState<TrainingsByCompetency[]>([])
   const [loading, setLoading] = React.useState(false)
   const { semesters, loading: loadingSemesters } = SemesterStore()
   const [semesterSelected, setSemesterSelected] = React.useState<Semester>()
@@ -15,7 +15,7 @@ function AssistanceBySchool() {
   const handleSelectSemester = async (semesterId: string) => {
     setLoading(true)
     setSemesterSelected(semesters.find((semester) => semester.id === semesterId))
-    const data = await getProfessorParticipationBySchool(semesterId)
+    const data = await getTrainingByCompetency(semesterId)
     setData(data)
     setLoading(false)
   }
@@ -31,7 +31,7 @@ function AssistanceBySchool() {
   return (
     <Card className="flex flex-col w-full h-full">
       <CardHeader className="items-center pb-0 text-center">
-        <CardTitle>Docentes que participaron de las Capacitaciones docentes distribuidos por Escuela Profesional, Departamento Académico y Posgrado.</CardTitle>
+        <CardTitle>Relación de capacitaciones generales y específicas programadas y su eficacia según su ejecución.</CardTitle>
         <CardDescription>
           <select
             value={semesterSelected?.id}
@@ -49,10 +49,10 @@ function AssistanceBySchool() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-4 pt-2">
-        <DataTableAssistanceBySchool columns={columns} data={data} />
+        <CompetencyTrainingDataTable columns={columns} data={data} />
       </CardContent>
     </Card>
   )
 }
 
-export default AssistanceBySchool
+export default TrainingsByCompetencyPage

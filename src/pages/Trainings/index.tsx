@@ -8,6 +8,8 @@ import { DeleteIcon, EditIcon } from "@/components/DataTable/TableIcons"
 import { TrainingStore } from "./store/TrainingStore"
 import { BookIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { SemesterStore } from "../Semesters/store/SemesterStore"
+import { SchoolStore } from "../Schools/store/SchoolStore"
 
 const columns = [
     {
@@ -36,6 +38,11 @@ const columns = [
         className: ""
     },
     {
+        field: "type",
+        headerName: "Tipo",
+        className: ""
+    },
+    {
         field: "modality",
         headerName: "Modalidad",
         className: ""
@@ -44,8 +51,16 @@ const columns = [
 
 function TrainingsPage() {
     const { open, setOpen, getData, tableTrainings: tableAuthorities, loading, setTrainingSelected } = TrainingStore()
+    const { getData: getSemesters } = SemesterStore()
+    const { getData: getSchools } = SchoolStore()
     useEffect(() => {
-        getData();
+        (
+            async () => {
+                await getSemesters()
+                await getData()
+                await getSchools()
+            }
+        )()
     }, [])
     const navigate = useNavigate()
 

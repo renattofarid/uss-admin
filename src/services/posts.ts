@@ -95,9 +95,13 @@ export interface ResponseUploadFile {
   url: string;
 }
 
-export const uploadFile = async (file: File): Promise<ResponseUploadFile> => {
+export const uploadFile = async (file: File, name?: string): Promise<ResponseUploadFile> => {
   const formData = new FormData();
   formData.append("file", file);
+  if (name) {
+    formData.append("name", name)
+    formData.append("saveReference", 'true')
+  }
   const { data } = await api.post<ResponseUploadFile>(
     `/storage/upload`,
     formData,

@@ -1,37 +1,27 @@
-import ModalProfessor from "./components/ModalProfessor"
+import ModalSemester from "./components/ModalSemester"
 import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Professor } from "@/services/professors"
+import { School } from "@/services/schools"
 import { DataTable } from "@/components/DataTable/DataTable"
 import { ExtraColumn } from "@/types/columns"
 import { DeleteIcon, EditIcon } from "@/components/DataTable/TableIcons"
-import { ProfessorStore } from "./store/ProfessorStore"
+import { SemesterStore } from "./store/SemesterStore"
 
 const columns = [
     {
+        field: "order",
+        headerName: "N°",
+        className: "w-1/5 font-bold"
+    },
+    {
         field: "name",
-        headerName: "Nombres",
-        className: ""
-    },
-    {
-        field: "documentNumber",
-        headerName: "Nº Documento",
-        className: ""
-    },
-    {
-        field: "employmentType",
-        headerName: "Tipo",
-        className: ""
-    },
-    {
-        field: "email",
-        headerName: "Email",
-        className: ""
+        headerName: "Nombre de Escuela",
+        className: "w-4/5 font-bold"
     },
 ];
 
-function ProfessorsPage() {
-    const { open, setOpen, getData, tableProfessors: tableAuthorities, loading, setProfessorSelected } = ProfessorStore()
+function SemestersPage() {
+    const { open, setOpen, getData, tableSemesters: tableAuthorities, loading, setSemesterSelected: setSchoolSelected } = SemesterStore()
     useEffect(() => {
         getData();
     }, [])
@@ -40,15 +30,15 @@ function ProfessorsPage() {
         {
             headerName: 'Acciones',
             field: 'actions',
-            render: (row: Professor) => {
+            render: (row: School) => {
                 return (
                     <div className="w-fit flex flex-row gap-1">
                         <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
-                            onClick={() => setProfessorSelected(row, 'edit')}>
+                            onClick={() => setSchoolSelected(row, 'edit')}>
                             <EditIcon />
                         </Button>
                         <Button className='bg-transparent shadow-none p-0 hover:bg-transparent'
-                            onClick={async () => setProfessorSelected(row, 'delete')}>
+                            onClick={async () => setSchoolSelected(row, 'delete')}>
                             <DeleteIcon />
                         </Button>
                     </div>
@@ -61,7 +51,7 @@ function ProfessorsPage() {
     return (
         <main className="flex flex-col gap-4 p-4">
             <section className="">
-                <h1 className="text-2xl font-semibold">Listado de Profesores</h1>
+                <h1 className="text-2xl font-semibold">Listado de Semestres</h1>
             </section>
 
             <section className="flex flex-row justify-between items-center gap-2">
@@ -71,12 +61,12 @@ function ProfessorsPage() {
                 <div>
                     <Button
                         onClick={() => {
-                            setProfessorSelected(null, 'create')
+                            setSchoolSelected(null, 'create')
                             setOpen(true)
                         }}
-                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nuevo Profesor
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nuevo Semestre
                     </Button>
-                    {open && <ModalProfessor />}
+                    {open && <ModalSemester />}
                 </div>
             </section>
             <div>
@@ -94,4 +84,4 @@ function ProfessorsPage() {
     )
 }
 
-export default ProfessorsPage
+export default SemestersPage

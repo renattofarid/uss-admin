@@ -1,4 +1,4 @@
-import { getTrainingsByDocument, Participant, TrainingByDocument } from "@/services/trainings";
+import { Certificate, getTrainingsByDocument, MapRoleInscription, TrainingByDocument } from "@/services/trainings";
 import { toast } from "sonner";
 import { create } from "zustand";
 
@@ -10,7 +10,7 @@ type State = {
 type Actions = {
     setLoading: (loading: boolean) => void;
     getCertificationsByDNI: (documentNumber: number) => Promise<void>;
-    downloadCertificate: (participant: Participant) => Promise<void>;
+    downloadCertificate: (participant: Certificate) => Promise<void>;
 };
 
 export const SearchTrainingStore = create<State & Actions>((set) => ({
@@ -36,11 +36,11 @@ export const SearchTrainingStore = create<State & Actions>((set) => ({
             set({ loading: false });
         }
     },
-    downloadCertificate: async (participant: Participant) => {
+    downloadCertificate: async (certificate: Certificate) => {
         try {
             set({ loading: true });
-            if (!participant.certificate) return;
-            const response = await fetch(participant.certificate?.url);
+            if (!certificate) return;
+            const response = await fetch(certificate?.url);
             console.log({ response })
             const blob = await response.blob();
 
@@ -49,7 +49,7 @@ export const SearchTrainingStore = create<State & Actions>((set) => ({
             const a = document.createElement("a");
             a.style.display = "none";
             a.href = urlBlob;
-            a.download = "Certificado.pdf"; // Nombre del archivo descargado
+            a.download = `Certificado ${MapRoleInscription[certificate.role]}.pdf`; // Nombre del archivo descargado
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(urlBlob);

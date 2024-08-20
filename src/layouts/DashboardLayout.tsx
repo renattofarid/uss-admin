@@ -39,6 +39,12 @@ const routes = [
         hasAccess: (user: User) => user.role === Role.ADMIN,
     },
     {
+        path: ['/semestres'],
+        label: 'Semestres',
+        redirectTo: '/semestres',
+        hasAccess: (user: User) => user.role === Role.ADMIN,
+    },
+    {
         path: ['/escuelas'],
         label: 'Escuelas',
         redirectTo: '/escuelas',
@@ -60,6 +66,18 @@ const routes = [
         path: ['/capacitaciones'],
         label: 'Capacitaciones',
         redirectTo: '/capacitaciones',
+        hasAccess: (user: User) => user.role === Role.ADMIN,
+    },
+    {
+        path: ['/capacitaciones-reportes'],
+        label: 'Reportes Capacitaciones',
+        redirectTo: '/capacitaciones-reportes',
+        hasAccess: (user: User) => user.role === Role.ADMIN,
+    },
+    {
+        path: ['/cloud'],
+        label: 'Cloud',
+        redirectTo: '/cloud',
         hasAccess: (user: User) => user.role === Role.ADMIN,
     },
 ]

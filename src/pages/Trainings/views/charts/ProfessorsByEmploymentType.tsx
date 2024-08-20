@@ -17,78 +17,53 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { ProfessorParticipation, getProfessorParticipationBySemester } from "@/services/reports"
-import { SemesterStore } from "@/pages/Semesters/store/SemesterStore"
-import { Semester } from "@/services/semesters"
+import { getProffessorsByEmploymentType, ProffessorsByEmploymentType } from "@/services/reports"
 let chartData = [
-  { key: "attended", count: 0, fill: "hsl(var(--chart-1))" },
-  { key: "pending", count: 0, fill: "hsl(var(--chart-3))" },
+  { key: "full_time", count: 0, fill: "hsl(var(--chart-1))" },
+  { key: "part_time", count: 0, fill: "hsl(var(--chart-3))" },
 ]
 
 const chartConfig = {
-  attended: {
-    label: "Participaron",
+  full_time: {
+    label: "Tiempo Completo",
     color: "hsl(var(--chart-1))",
   },
-  pending: {
-    label: "No Participaron",
+  part_time: {
+    label: "Tiempo Parcial",
     color: "hsl(var(--chart-3))",
   },
 } satisfies ChartConfig
 
-export function AssistanceByYear() {
+export function ProfessorsByEmploymentType() {
   // const totalVisitors = React.useMemo(() => {
   //   return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
   // }, [])
-  const { semesters, loading: loadingSemesters } = SemesterStore()
-  const [loading, setLoading] = React.useState(false)
-  const [assistanceByYear, setAssistanceByYear] = React.useState<ProfessorParticipation | null>(null)
-  const [semesterSelected, setSemesterSelected] = React.useState<Semester>()
+
+  const [proffesorsByEmploymentType, setProffesorsByEmploymentType] = React.useState<ProffessorsByEmploymentType | null>(null)
+
+  React.useEffect(() => {
+    (
+      async () => {
+        const data = await getProffessorsByEmploymentType()
+        setProffesorsByEmploymentType(data)
+        chartData = [
+          { key: "full_time", count: data.full_time, fill: "hsl(var(--chart-1))" },
+          { key: "part_time", count: data.part_time, fill: "hsl(var(--chart-3))" },
+        ]
+      }
+    )()
+  }, [])
 
   const totalCount = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.count, 0)
-  }, [assistanceByYear])
-
-  const handleSelectSemester = async (semesterId: string) => {
-    setLoading(true)
-    setSemesterSelected(semesters.find((semester) => semester.id === semesterId))
-    const data = await getProfessorParticipationBySemester(semesterId)
-    setAssistanceByYear(data)
-    chartData = [
-      { key: "attended", count: data.attended, fill: "hsl(var(--chart-1))" },
-      { key: "pending", count: data.pending, fill: "hsl(var(--chart-3))" },
-    ]
-    setLoading(false)
-  }
-
-  if (loadingSemesters) {
-    return <div>Cargando semestres...</div>
-  }
-
-  if (loading) {
-    return <div>Cargando...</div>
-  }
+  }, [proffesorsByEmploymentType])
 
 
   return (
-    <Card className="flex flex-col w-full h-full">
-      <CardHeader className="items-center pb-0 text-center">
-        <CardTitle>Porcentaje de Docentes que Participaron y No Participaron en las capacitaciones</CardTitle>
-        <CardDescription>
-          <select
-            value={semesterSelected?.id}
-            className="p-2 border border-gray-300 rounded-md"
-            onChange={(e) => handleSelectSemester(e.target.value)}
-          >
-            <option>
-              Seleccione un semestre</option>
-            {semesters.map((semester) => (
-              <option key={semester.id} value={semester.id}>
-                {semester.name}
-              </option>
-            ))}
-          </select>
-        </CardDescription>
+    <Card className="flex flex-col h-full w-full">
+      <CardHeader className="items-center pb-0">
+        <CardTitle>Población Docente según su condición</CardTitle>
+        <CardDescription></CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer

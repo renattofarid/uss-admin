@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { MapTrainingModality, MapTrainingStatus, TrainingBodyRequest, TrainingModality, TrainingStatus } from "@/services/trainings";
+import { MapTrainingModality, MapTrainingStatus, MapTypeTraining, TrainingBodyRequest, TrainingModality, TrainingStatus, TypeTraining } from "@/services/trainings";
 import { useEffect } from "react";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -14,12 +14,14 @@ import { PlusIcon, Trash2Icon } from "lucide-react";
 import { DataTableParticipants } from "./participant/table";
 import { columns } from "./participant/column";
 import { uploadFile } from "@/services/posts";
+import { SemesterStore } from "@/pages/Semesters/store/SemesterStore";
 
 
 function ModalTraining() {
     const { setOpen, action, loading, setLoading, open, trainingSelected, participantsDraft, competencies, setTrainingSelected, getParticipantsByTraining, crtTraining, updTraining, delTraining, searchParticipants } = TrainingStore()
+    const { semesters } = SemesterStore()
+    const { schools } = SchoolStore()
 
-    const { schools, getData } = SchoolStore()
 
     const title = () => {
         switch (action) {
@@ -55,11 +57,9 @@ function ModalTraining() {
             getParticipantsByTraining()
         }
         if (action === 'create') {
-            getData()
             return reset()
         }
         if (action === 'edit') {
-            getData()
             if (!trainingSelected) return
             reset({
                 ...trainingSelected,
@@ -135,7 +135,7 @@ function ModalTraining() {
 
                 <DialogDescription asChild className="py-4">
                     <form onSubmit={onSubmit} encType='multipart/form-data'>
-                        <pre className="text-xs hidden">
+                        <pre className="text-xs ">
                             <code>
                                 {JSON.stringify({ form: watch(), action }, null, 4)}
                             </code>
@@ -166,6 +166,80 @@ function ModalTraining() {
                         )}
                         {(action === 'create' || action === 'edit') && (
                             <>
+
+                                <div className="flex flex-col items-start gap-2">
+                                    <Label htmlFor="category" className="text-right">
+                                        Semestre
+                                    </Label>
+                                    <Select
+                                        options={
+                                            semesters.map((semester) => ({
+                                                value: semester.id,
+                                                label: semester.name
+                                            }))
+                                        }
+                                        {...register("semesterId", {
+                                            required: {
+                                                value: true,
+                                                message: "Semestre es requerido.",
+                                            },
+                                        })}
+                                        value={watch('semesterId') as any &&
+                                            schools.find((school) => school.id === watch('semesterId')) &&
+                                        {
+                                            value: watch('semesterId'),
+                                            label: schools.find((school) => school.id === watch('semesterId'))?.name
+                                        }
+                                        }
+                                        isDisabled={loading}
+                                        className="w-full col-span-3 z-[102]"
+                                        onChange={(option) => {
+                                            setValue('semesterId', option.value)
+                                            setError('semesterId', {
+                                                type: 'disabled'
+                                            })
+                                        }}
+                                    />
+                                    {errors.semesterId &&
+                                        <span className="text-red-600 text-xs">{errors.semesterId.message}</span>
+                                    }
+                                </div>
+                                <div className="flex flex-col items-start gap-2">
+                                    <Label htmlFor="modality" className="text-right">
+                                        Tipo
+                                    </Label>
+                                    <Select
+                                        options={
+                                            Object.values(TypeTraining).map((type) => ({
+                                                value: type,
+                                                label: MapTypeTraining[type]
+                                            }))
+                                        }
+                                        {...register("type", {
+                                            required: {
+                                                value: true,
+                                                message: "Tipo es requerida.",
+                                            },
+                                        })}
+                                        value={watch('type') as any &&
+                                        {
+                                            value: watch('type'),
+                                            label: MapTypeTraining[watch('type')]
+                                        }
+                                        }
+                                        isDisabled={loading}
+                                        className="w-full col-span-3 z-[99]"
+                                        onChange={(option) => {
+                                            setValue('type', option?.value)
+                                            setError('type', {
+                                                type: 'disabled'
+                                            })
+                                        }}
+                                    />
+                                    {errors.type &&
+                                        <span className="text-red-600 text-xs">{errors.type.message}</span>
+                                    }
+                                </div>
                                 <div className="flex flex-col items-start gap-2">
                                     <Label htmlFor="code" className="text-right">
                                         Código
@@ -504,6 +578,26 @@ function ModalTraining() {
 
                                 <div className="flex flex-col gap-2 border border-slate-600 p-4 mt-6 rounded-lg relative">
                                     <span className="absolute left-3 -top-2 text-slate-600 bg-white px-2 text-xs">Recursos para certificado</span>
+                                    <div className="flex flex-col items-start gap-2">
+                                        <Label htmlFor="certificateOrganizer" className="text-right">
+                                            Organizado por
+                                        </Label>
+                                        <Input
+                                            id="certificateOrganizer"
+                                            disabled={loading}
+                                            className="col-span-3"
+                                            placeholder="Organizado por"
+                                            {...register('certificateOrganizer', {
+                                                required: {
+                                                    value: true,
+                                                    message: 'Organizado por es requerido.'
+                                                }
+                                            })}
+                                        />
+                                        {errors.certificateOrganizer &&
+                                            <span className="text-red-600 text-xs">{errors.certificateOrganizer.message}</span>
+                                        }
+                                    </div>
                                     <div className="flex flex-col items-start gap-2">
                                         <Label htmlFor="background" className="text-right">
                                             Fondo del certificado

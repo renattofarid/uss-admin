@@ -31,11 +31,29 @@ export enum RoleInscription {
   SPEAKER = "speaker",
   ORGANIZER = "organizer",
 }
-export enum MapRoleInscription {
-  assistant = "Asistente",
-  speaker = "Ponente",
-  organizer = "Organizador",
+// export enum MapRoleInscription {
+//   assistant = "Asistente",
+//   speaker = "Ponente",
+//   organizer = "Organizador",
+// }
+export const MapRoleInscription: {
+  [key in RoleInscription]: string;
+} = {
+  [RoleInscription.ASSISTANT]: "Asistente",
+  [RoleInscription.SPEAKER]: "Ponente",
+  [RoleInscription.ORGANIZER]: "Organizador",
+};
+
+export enum TypeTraining {
+  EXTRA = "extra",
+  SCHEDULED = "scheduled",
 }
+export const MapTypeTraining: {
+  [key in TypeTraining]: string;
+} = {
+  [TypeTraining.EXTRA]: "Extraordinaria",
+  [TypeTraining.SCHEDULED]: "Programada",
+};
 
 export interface Training {
   competencyId:  string;
@@ -50,6 +68,7 @@ export interface Training {
   background?: string;
   signature?: string;
   issueDate?: string;
+  type: TypeTraining;
   id:           string;
 }
 
@@ -84,6 +103,9 @@ export interface TrainingBodyRequest {
   capacity:   number;
   status:     string;
   modality:   string;
+  semesterId: string;
+  type:       TypeTraining;
+  certificateOrganizer: string;
   certificateBackgroundUrl?: string;
   certificateSignatureUrl?: string;
   certificateEmisionDate?: string;
@@ -120,7 +142,7 @@ export interface Participant {
   foreignId:        string;
   roles:             RoleInscription[];
   attendanceStatus: AttendanceStatus;
-  certificate:      Certificate;
+  certificates:      Certificate[];
   professor:        Professor;
   executions:       ParticipantExecution[];
 }
@@ -135,6 +157,7 @@ export interface Certificate {
   trainingFromDate: string;
   trainingToDate:   string;
   url:              string;
+  role:            RoleInscription;
 }
 
 // {{url}}/api/training/:id/participants

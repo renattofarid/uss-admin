@@ -16,6 +16,8 @@ import RequestsPage from '@/pages/Requests'
 import CompetenciesPage from '@/pages/Competencies'
 import SearchByDocument from '@/pages/Trainings/components/searchByDocument/page'
 import StatiticsPage from '@/pages/Trainings/views/StatiticsPage'
+import SemestersPage from '@/pages/Semesters'
+import StogarePage from '@/pages/Storage'
 
 const routes = [
   {
@@ -38,6 +40,13 @@ const routes = [
     redirectTo: '/autoridades',
     hasAccess: (user: User) => user.role === Role.ADMIN,
     component: AuthoritiesPage,
+  },
+  {
+    path: 'semestres',
+    label: 'Semestres',
+    redirectTo: '/semestres',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: SemestersPage,
   },
   {
     path: 'escuelas',
@@ -87,6 +96,13 @@ const routes = [
     redirectTo: '/capacitaciones-reportes',
     hasAccess: (user: User) => user.role === Role.ADMIN,
     component: StatiticsPage,
+  },
+  {
+    path: 'cloud',
+    label: 'Cloud',
+    redirectTo: '/cloud',
+    hasAccess: (user: User) => user.role === Role.ADMIN,
+    component: StogarePage,
   },
 
 ]
