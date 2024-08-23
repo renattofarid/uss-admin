@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { UserBodyRequest } from "@/services/users";
+import { MapRoleUser, RoleUserSelect, UserBodyRequest } from "@/services/users";
 import { useEffect } from "react";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { UserStore } from "../store/UserStore";
 import { Input } from "@/components/ui/input";
 
 function ModalUser() {
-    const { setOpen, action, loading, open, userSelected, setUserSelected, crtUser, updUser, setLoading, delUser } = UserStore()
+    const { setOpen, action, loading, open, userSelected, setUserSelected, crtUser, updUser, setLoading, delUser, countries } = UserStore()
 
     const title = () => {
         switch (action) {
@@ -50,10 +50,7 @@ function ModalUser() {
         if (action === 'edit') {
             if (!userSelected) return
             reset({
-                email: userSelected.email,
-                image: userSelected.image,
-                name: userSelected.name,
-                role: userSelected.role,
+                ...userSelected
             })
         }
         return () => {
@@ -115,7 +112,7 @@ function ModalUser() {
                         </div>
                     )}
                     {action !== 'delete' && (
-                        <>
+                        <div className="py-6 flex flex-col gap-2">
                             <div className="flex flex-col items-start gap-2">
                                 <Label htmlFor="title" className="text-right">
                                     Nombre
@@ -220,25 +217,27 @@ function ModalUser() {
                                 </Label>
                                 <Select
                                     options={
-                                        ['author']
-                                            .map(role => ({ value: role, label: role }))
+                                        Object.values(RoleUserSelect).map((modality) => ({
+                                            value: modality,
+                                            label: MapRoleUser[modality]
+                                        }))
                                     }
                                     {...register("role", {
                                         required: {
                                             value: true,
-                                            message: "Autor es requerido.",
+                                            message: "Escuela es requerida.",
                                         },
                                     })}
                                     value={watch('role') as any &&
-                                        ['author'].map(post =>
-                                            ({ value: post, label: post }))
-                                            .find(
-                                                (item) => item.value === watch('role')
-                                            )}
+                                    {
+                                        value: watch('role'),
+                                        label: MapRoleUser[watch('role') as RoleUserSelect]
+                                    }
+                                    }
                                     isDisabled={loading}
-                                    className="w-full col-span-3 z-[100]"
+                                    className="w-full col-span-3 z-[99]"
                                     onChange={(option) => {
-                                        setValue('role', option.value)
+                                        setValue('role', option?.value as string)
                                         setError('role', {
                                             type: 'disabled'
                                         })
@@ -248,8 +247,51 @@ function ModalUser() {
                                     <span className="text-red-600 text-xs">{errors.role.message}</span>
                                 }
                             </div>
+                            <div className="flex flex-col items-start gap-2">
+                                <Label htmlFor="countries" className="text-right">
+                                    País
+                                </Label>
+                                <Select
+                                    options={
+                                        countries.map((country) => ({
+                                            value: country.code,
+                                            label: country.name
+                                        }))
+                                    }
+                                    {...register("countryCode", {
+                                        required: {
+                                            value: true,
+                                            message: "País es requerido.",
+                                        },
+                                    })}
+                                    value={watch('countryCode') as any &&
+                                        countries.find((c) => c.code === watch('countryCode')) &&
+                                    {
+                                        value: watch('countryCode'),
+                                        // label: countries.find((c) => c.code === watch('countryCode'))?.name,
+                                        label: (
+                                            <span className="text-bold flex gap-1">
+                                                <img src={countries.find((c) => c.code === watch('countryCode'))?.icon} alt={countries.find((c) => c.code === watch('countryCode'))?.name} className="w-6 h-6" />
+                                                {countries.find((c) => c.code === watch('countryCode'))?.name}
+                                            </span>
+                                        ),
+                                    }
+                                    }
+                                    isDisabled={loading}
+                                    className="w-full col-span-3 z-[98]"
+                                    onChange={(option) => {
+                                        setValue('countryCode', option?.value as string)
+                                        setError('countryCode', {
+                                            type: 'disabled'
+                                        })
+                                    }}
+                                />
+                                {errors.countryCode &&
+                                    <span className="text-red-600 text-xs">{errors.countryCode.message}</span>
+                                }
+                            </div>
 
-                        </>
+                        </div>
                     )}
                     <DialogFooter>
                         <Button

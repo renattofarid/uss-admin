@@ -1,17 +1,20 @@
-import { User, UserBodyRequest, createUser, updateUser, getUsers, deleteUser } from "@/services/users";
+import { User, UserBodyRequest, createUser, updateUser, getUsers, deleteUser, getCountries, Country } from "@/services/users";
 import { ActionsTypes } from "@/types/general";
 import { toast } from "sonner";
 import { create } from "zustand";
+import { MapRoleUser } from '../../../services/users';
 
 interface TableUsers {
   [key: string | number]: string | number | JSX.Element;
   id: string;
   name: string | JSX.Element;
+  country: string | JSX.Element;
   email: string;
   role: string;
 }
 type State = {
   users: User[];
+  countries: Country[];
   tags: string[];
   tableUsers: TableUsers[];
   userSelected: User | null;
@@ -45,16 +48,26 @@ const mapUsersToTableUsers = (users: User[]): TableUsers[] => {
         <span className="text-xs font-semibold">{user.name}</span>
       </div>
     ),
+    country: (
+      <div className="flex flex-row gap-2 items-center">
+        <img
+          className="w-8 h-8 rounded-lg object-cover"
+          src={user.country?.icon}
+          alt={user.country?.name}
+        />
+        <span className="text-xs font-semibold">{user.country?.name}</span>
+      </div>
+    ),
     email: user.email,
-    role: user.role,
+    role: MapRoleUser[user.role],
     id: user.id,
   }));
 }
 
 export const UserStore = create<State & Actions>((set) => ({
-  Users: [],
   tags: [],
   users: [],
+  countries: [],
   tableUsers: [],
   userSelected: null,
   action: 'none',
@@ -63,8 +76,9 @@ export const UserStore = create<State & Actions>((set) => ({
   getData: async () => {
     try {
       set({ loading: true });
+      const countries = await getCountries();
       const users = await getUsers();
-      set({ users });
+      set({ users, countries });
       const tableUsers = mapUsersToTableUsers(users);
       set({ tableUsers });
     } catch (error) {
@@ -75,7 +89,7 @@ export const UserStore = create<State & Actions>((set) => ({
   },
   setUserSelected(user, action) {
     const userSelected = UserStore.getState().users.find((User) => User.id === user?.id);
-    set({ userSelected, action, open: !!user?.id ?? false });
+    set({ userSelected, action, open: !!user?.id});
   },
   crtUser: async (body) => {
     try {

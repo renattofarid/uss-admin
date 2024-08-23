@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { cn } from "@/lib/utils";
-import { Role, User } from "@/services/users";
+import { RoleUser, User } from "@/services/users";
 
 const routes = [
     {
@@ -18,67 +18,67 @@ const routes = [
         path: ['/usuarios'],
         label: 'Usuarios',
         redirectTo: '/usuarios',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/home'],
         label: 'Home Posts',
         redirectTo: '/home',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/solicitudes'],
         label: 'Solicitudes',
         redirectTo: '/solicitudes',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/autoridades'],
         label: 'Autoridades',
         redirectTo: '/autoridades',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/semestres'],
         label: 'Semestres',
         redirectTo: '/semestres',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/escuelas'],
         label: 'Escuelas',
         redirectTo: '/escuelas',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/profesores'],
         label: 'Profesores',
         redirectTo: '/profesores',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/competencias'],
         label: 'Competencias',
         redirectTo: '/competencias',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/capacitaciones'],
         label: 'Capacitaciones',
         redirectTo: '/capacitaciones',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/capacitaciones-reportes'],
         label: 'Reportes Capacitaciones',
         redirectTo: '/capacitaciones-reportes',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
     {
         path: ['/cloud'],
         label: 'Cloud',
         redirectTo: '/cloud',
-        hasAccess: (user: User) => user.role === Role.ADMIN,
+        hasAccess: (user: User) => user.role === RoleUser.ADMIN,
     },
 ]
 interface ProtectedRouteProps {

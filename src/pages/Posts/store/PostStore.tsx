@@ -1,6 +1,6 @@
 import { Post, PostBodyRequest, createPost, deletePost, getPostBySlug, getPosts, updatePost } from "@/services/posts";
 import { getTags } from "@/services/tags";
-import { Role, User, getUsers } from "@/services/users";
+import { RoleUser, User, getUsers } from "@/services/users";
 import { ActionsTypes } from "@/types/general";
 import { formatDate, transformSecondsToMinutes } from "@/utils/date";
 import { create } from "zustand";
@@ -73,10 +73,10 @@ export const postStore = create<State & Actions>((set) => ({
     try {
       set({ loading: true });
       const [posts, tags] = await Promise.all([getPosts({
-        userId: user.role === Role.ADMIN ? undefined : user.id,
+        userId: user.role === RoleUser.ADMIN ? undefined : user.id,
       }), getTags()]);
       const users = await getUsers();
-      set({ posts, tags, users: user.role === Role.ADMIN ? users : users.filter((u) => u.id === user.id)});
+      set({ posts, tags, users: user.role === RoleUser.ADMIN ? users : users.filter((u) => u.id === user.id)});
       const tablePosts = mapPostsToTablePosts(posts);
       set({ tablePosts });
     } catch (error) {
@@ -89,7 +89,7 @@ export const postStore = create<State & Actions>((set) => ({
     try {
       set({ loading: true });
       const posts = await getPosts({
-        userId: user.role === Role.ADMIN ? undefined : user.id,
+        userId: user.role === RoleUser.ADMIN ? undefined : user.id,
       });
       set({ posts });
       set({ tablePosts: mapPostsToTablePosts(posts) });
@@ -113,7 +113,7 @@ export const postStore = create<State & Actions>((set) => ({
   },
   setPostSelected(id, action) {
     const postSelected = postStore.getState().posts.find((post) => post.id === id);
-    set({ postSelected, action, open: !!id ?? false });
+    set({ postSelected, action, open: !!id });
   },
   crtPost: async (body) => {
     try {

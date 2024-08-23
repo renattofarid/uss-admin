@@ -113,7 +113,7 @@ function ModalAuthority() {
                         </div>
                     )}
                     {(action === 'create' || action === 'edit') && (
-                        <>
+                        <div className="py-6 flex flex-col gap-2">
                             <div className="flex flex-col items-start gap-2">
                                 <Label htmlFor="title" className="text-right">
                                     Nombre
@@ -224,7 +224,7 @@ function ModalAuthority() {
                                     <span className="text-red-600 text-xs">{errors.imageUrl.message}</span>
                                 }
                             </div>
-                        </>
+                        </div>
                     )}
                     <DialogFooter>
                         <Button

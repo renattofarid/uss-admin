@@ -133,9 +133,9 @@ function ModalTraining() {
                     <DialogTitle>{title()}</DialogTitle>
                 </DialogHeader>
 
-                <DialogDescription asChild className="py-4">
+                <DialogDescription asChild className="">
                     <form onSubmit={onSubmit} encType='multipart/form-data'>
-                        <pre className="text-xs ">
+                        <pre className="text-xs hidden">
                             <code>
                                 {JSON.stringify({ form: watch(), action }, null, 4)}
                             </code>
@@ -165,8 +165,7 @@ function ModalTraining() {
                             </div>
                         )}
                         {(action === 'create' || action === 'edit') && (
-                            <>
-
+                            <div className="py-6 flex flex-col gap-2">
                                 <div className="flex flex-col items-start gap-2">
                                     <Label htmlFor="category" className="text-right">
                                         Semestre
@@ -664,7 +663,7 @@ function ModalTraining() {
                                         }
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         )}
                         {(action === 'create' || action === 'edit') && (
                             <DialogFooter className="pt-4">

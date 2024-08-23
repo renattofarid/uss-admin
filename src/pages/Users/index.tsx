@@ -14,6 +14,11 @@ const columns = [
         className: "w-1/3 font-bold"
     },
     {
+        field: "country",
+        headerName: "País",
+        className: ""
+    },
+    {
         field: "email",
         headerName: "Email",
         className: ""

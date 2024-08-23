@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { uploadFile } from "@/services/posts";
 import { StorageBlob, deleteBlob, getBlobs } from "@/services/storage";
 import { ActionsTypes } from "@/types/general";
+import { formatDate } from "@/utils/date";
 import { Copy } from "lucide-react";
 import { toast } from "sonner";
 import { create } from "zustand";
@@ -55,7 +56,7 @@ const mapSemestersToTableSemesters = (storage: StorageBlob[]): TableStorage[] =>
       </div>
     ),
     id: blob.id,
-    createdAt: blob.createdAt,
+    createdAt: formatDate(blob.createdAt),
     order: idx + 1,
   }));
 }
