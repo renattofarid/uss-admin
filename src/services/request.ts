@@ -18,7 +18,13 @@ export interface RequestPost {
   id: string;
   user: User;
   createdAt: Date;
+  rejectionReasons: RejectionReason[];
   approvalStatus: ApprovalStatus;
+}
+export interface RejectionReason {
+  id: string;
+  reason: string;
+  createdAt: string;
 }
 export const getRequestPosts = async (): Promise<RequestPost[]> => {
   const { data } = await api.get(`/posts/find/requests`);
@@ -54,6 +60,7 @@ export const MapApprovalStatus: { [key in ApprovalStatus]: string } = {
 };
 export interface UpdateRequestStatus {
   approvalStatus: ApprovalStatus;
+  rejectionReason?: string;
 }
 export const updateRequestStatus = async (
   id: string,

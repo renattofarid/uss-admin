@@ -6,4 +6,5 @@ export type ActionsTypes =
   | "list"
   | "accept"
   | "reject"
+  | "list-rejects"
   | "none";

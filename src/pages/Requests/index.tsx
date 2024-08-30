@@ -5,7 +5,7 @@ import { Post } from "@/services/posts"
 import { DataTable } from "@/components/DataTable/DataTable"
 import { ExtraColumn } from "@/types/columns"
 import { RequestStore } from "./store/RequestStore"
-import { Ban, CheckCheck, Eye } from "lucide-react"
+import { Ban, CheckCheck, Eye, ListX } from "lucide-react"
 
 const columns = [
     {
@@ -55,6 +55,10 @@ function RequestsPage() {
                         <Button className='bg-transparent shadow-none hover:bg-transparent border border-green-500 h-7 w-7 p-1'
                             onClick={() => setRequestSelected(row.id, 'accept')}>
                             <CheckCheck className="text-green-500" />
+                        </Button>
+                        <Button className='bg-transparent shadow-none hover:bg-transparent border border-purple-500 h-7 w-7 p-1'
+                            onClick={() => setRequestSelected(row.id, 'list-rejects')}>
+                            <ListX className="text-purple-500" />
                         </Button>
                         <Button className='bg-transparent shadow-none hover:bg-transparent border border-red-500 h-7 w-7 p-1'
                             onClick={() => setRequestSelected(row.id, 'reject')}>

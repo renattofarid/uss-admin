@@ -25,7 +25,7 @@ type State = {
 type Actions = {
   getData: () => Promise<void>;
   setRequestSelected: (id: string, action: ActionsTypes) => void;
-  updRequestStatus: (id: string, status: ApprovalStatus) => Promise<void>;
+  updRequestStatus: (id: string, status: ApprovalStatus, rejectionReason?: string) => Promise<void>;
   setLoading: (loading: boolean) => void;
   setOpen: (open: boolean) => void;
 };
@@ -88,10 +88,10 @@ export const RequestStore = create<State & Actions>((set) => ({
     const requestSelected = RequestStore.getState().requests.find((Request) => Request.id === id);
     set({ requestSelected, action, open: !!id });
   },
-  updRequestStatus: async (id, approvalStatus) => {
+  updRequestStatus: async (id, approvalStatus, rejectionReason) => {
     try {
       set({ loading: true });
-      const updatedRequest = await updateRequestStatus(id, { approvalStatus });
+      const updatedRequest = await updateRequestStatus(id, { approvalStatus, rejectionReason });
       const updatedRequests = RequestStore.getState().requests.map((request) => {
         if (request.id === id) {
           return updatedRequest;

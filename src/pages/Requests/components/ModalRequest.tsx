@@ -6,15 +6,18 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { RequestStore } from "../store/RequestStore";
 import { categoryMapper } from "@/services/posts";
 import { ApprovalStatus } from "@/services/request";
+import { formatDate } from "@/utils/date";
 
 function ModalRequest() {
 
     const { loading, open, setOpen, setRequestSelected, action, updRequestStatus, requestSelected } = RequestStore();
+    const [rejectionReason, setRejectionReason] = useState<string>('')
+
     const title = () => {
         switch (action) {
             case 'view':
@@ -27,6 +30,8 @@ function ModalRequest() {
                 return 'Crear Solicitud'
             case 'accept':
                 return 'Aceptar Solicitud'
+            case 'list-rejects':
+                return 'Razones de rechazo'
             default:
                 return 'Solicitud'
         }
@@ -46,7 +51,7 @@ function ModalRequest() {
         }
         if (action === 'reject') {
             if (!requestSelected) return
-            return await updRequestStatus(requestSelected.id, ApprovalStatus.REJECTED)
+            return await updRequestStatus(requestSelected.id, ApprovalStatus.REJECTED, rejectionReason)
         }
     }
 
@@ -74,12 +79,39 @@ function ModalRequest() {
                             </h1>
                         </div>
                     ) : action === 'reject' ? (
-                        <div>
-                            <h1 className="py-6">
+                        <div className="py-6">
+                            <h1>
                                 ¿Estás seguro de rechazar: {requestSelected?.title}?
                             </h1>
+                            {/* input rejectionReason */}
+                            <div className="py0">
+                                <label className="text-xs italic">Razón de rechazo</label>
+                                <textarea
+                                    value={rejectionReason}
+                                    name="rejectionReason"
+                                    placeholder="Escribe la razón de rechazo"
+                                    className="w-full h-24 bg-gray-100 p-2 rounded-lg"
+                                    onChange={(e) => setRejectionReason(e.target.value)}
+                                />
+                            </div>
                         </div>
-                    ) : action === 'view' ? (
+                    ) : action === 'list-rejects' ? (
+                        <div className="py-6">
+                            <div className="flex flex-col gap-2">
+                                {requestSelected?.rejectionReasons?.length ? requestSelected?.rejectionReasons?.map((reason, index) => (
+                                    <div key={index} className="flex flex-row gap-1">
+                                        <span className="text-xs font-semibold">{reason.reason}</span>
+                                        <span className="text-xs font-light">({formatDate(reason.createdAt)})</span>
+                                    </div>
+                                )) : (
+                                    <div>
+                                        <span className="text-xs font-semibold">No hay razones de rechazo</span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )
+                    : action === 'view' ? (
                         <div className="py-6 flex flex-col gap-2">
                             {requestSelected?.category && (
                                 <div>
