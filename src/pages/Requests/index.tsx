@@ -49,7 +49,7 @@ function RequestsPage() {
                 return (
                     <div className="w-fit flex flex-row gap-1 items-center">
                         <Button className='bg-transparent shadow-none hover:bg-transparent border border-blue-500 h-7 w-7 p-1'
-                            onClick={() => setRequestSelected(row.id, 'view')}>
+                            onClick={() => setRequestSelected(row.slug, 'view')}>
                             <Eye className="text-blue-500" />
                         </Button>
                         <Button className='bg-transparent shadow-none hover:bg-transparent border border-green-500 h-7 w-7 p-1'

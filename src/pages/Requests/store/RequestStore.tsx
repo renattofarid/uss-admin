@@ -1,4 +1,4 @@
-import { categoryMapper } from "@/services/posts";
+import { categoryMapper, getPostBySlug } from "@/services/posts";
 import { RequestPost, getRequestPosts, ApprovalStatus, updateRequestStatus, MapApprovalStatus } from "@/services/request";
 import { ActionsTypes } from "@/types/general";
 import { formatDate } from "@/utils/date";
@@ -24,7 +24,7 @@ type State = {
 
 type Actions = {
   getData: () => Promise<void>;
-  setRequestSelected: (id: string, action: ActionsTypes) => void;
+  setRequestSelected: (id: string, action: ActionsTypes) => Promise<void>;
   updRequestStatus: (id: string, status: ApprovalStatus, rejectionReason?: string) => Promise<void>;
   setLoading: (loading: boolean) => void;
   setOpen: (open: boolean) => void;
@@ -60,6 +60,7 @@ const mapRequestsToTableRequests = (requests: RequestPost[]): TableRequests[] =>
     ),
     createdAt: formatDate(request.createdAt.toString()),
     status: request.approvalStatus ? MapApprovalStatus[request.approvalStatus] : 'Pendiente',
+    slug: request.slug,
   }));
 }
 
@@ -83,8 +84,15 @@ export const RequestStore = create<State & Actions>((set) => ({
       set({ loading: false });
     }
   },
-  setRequestSelected(id, action) {
+  async setRequestSelected(id, action) {
+    console.log({id})
     if (!id) return;
+    if (action === 'view') {
+      console.log({ id });
+      const requestSelected = await getPostBySlug(id);
+      set({ requestSelected: requestSelected as unknown as RequestPost, action, open: !!id });
+      return
+    }
     const requestSelected = RequestStore.getState().requests.find((Request) => Request.id === id);
     set({ requestSelected, action, open: !!id });
   },

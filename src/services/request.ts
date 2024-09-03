@@ -5,6 +5,7 @@ import { User } from "./users";
 export interface RequestPost {
   userId: string;
   title: string;
+  slug: string;
   category: Category;
   subCategory: string | null;
   description: string | null;
