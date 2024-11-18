@@ -55,17 +55,29 @@ export const getProfessorParticipationBySchool = async (
 };
 
 export interface ProffessorsByEmploymentType {
-  full_time: number;
-  part_time: number;
+  full_time: Time;
+  part_time: Time;
 }
+
+export interface Time {
+  attended: number;
+  pending:  number;
+}
+
 // {{url}}/api/reports/professors-by-employment-type
-export const getProffessorsByEmploymentType =
-  async (): Promise<ProffessorsByEmploymentType> => {
-    const { data } = await api.get<ProffessorsByEmploymentType>(
-      "/reports/professors-by-employment-type"
-    );
-    return data;
-  };
+export const getProffessorsByEmploymentType = async (
+  semesterId: string
+): Promise<ProffessorsByEmploymentType> => {
+  const { data } = await api.get<ProffessorsByEmploymentType>(
+    "/reports/professors-by-employment-type",
+    {
+      params: {
+        semesterId,
+      },
+    }
+  );
+  return data;
+};
 
 export interface TrainingsByCompetency {
   competency: string;
