@@ -15,13 +15,13 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { useMemo } from "react"
+import { useMemo, useRef } from "react"
 import { SchoolStatitic } from "@/services/reports"
 import { Button } from "@/components/ui/button"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    data: TData[],
 }
 
 export function DataTableAssistanceBySchool<TData, TValue>({
@@ -119,7 +119,7 @@ export function DataTableAssistanceBySchool<TData, TValue>({
                                 </TableCell>
                                 <TableCell>
                                     {/* <Button variant={"outline"}> */}
-                                        <ListProffesors data={joinProfessors} total={getTotalCountProffesors} />
+                                    <ListProffesors data={joinProfessors} total={getTotalCountProffesors} />
                                     {/* </Button> */}
                                 </TableCell>
                                 <TableCell>
@@ -153,10 +153,15 @@ import {
 import { Professor } from "@/services/professors"
 import { TableListProffesors } from "./ListProffesors/table"
 import { columns } from "./ListProffesors/columns"
+import { DownloadButton } from "@/components/DataTable/DownloadButton"
+import { Exports } from "@/utils/exports"
 
 function ListProffesors({
     total, data
 }: { total: number, data: Professor[] }) {
+
+    const tableRef = useRef<HTMLTableElement | null>(null);
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -167,9 +172,13 @@ function ListProffesors({
                     <DialogTitle>Lista Docentes</DialogTitle>
                     <DialogDescription>
                         {/* Make changes to your profile here. Click save when you're done. */}
+                        <DownloadButton disabled={data.length < 1} onClick={() => {
+                            if (!tableRef.current || data.length < 1) return;
+                            Exports.tableToBook(tableRef.current, 'lista-docentes')
+                        }} />
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
+                <div className="grid gap-4 py-4" ref={tableRef}>
                     <TableListProffesors data={data} columns={columns} />
                 </div>
                 <DialogFooter>

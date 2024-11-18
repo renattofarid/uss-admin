@@ -1,16 +1,21 @@
 import { getProfessorParticipationBySchool, SchoolStatitic } from "@/services/reports"
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { DataTableAssistanceBySchool } from "./table"
 import { columns } from "./columns"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { SemesterStore } from "@/pages/Semesters/store/SemesterStore"
 import { Semester } from "@/services/semesters"
+import { DownloadButton } from "@/components/DataTable/DownloadButton"
+import { Exports } from "@/utils/exports"
+
+// const TABLE_ID = 'participation-by-school';
 
 function AssistanceBySchool() {
   const [data, setData] = useState<SchoolStatitic[]>([])
   const [loading, setLoading] = React.useState(false)
   const { semesters, loading: loadingSemesters } = SemesterStore()
   const [semesterSelected, setSemesterSelected] = React.useState<Semester>()
+  const tableRef = useRef<HTMLTableElement | null>(null);
 
   const handleSelectSemester = async (semesterId: string) => {
     setLoading(true)
@@ -46,10 +51,16 @@ function AssistanceBySchool() {
               </option>
             ))}
           </select>
+          <DownloadButton disabled={data.length < 1} onClick={() => {
+            if (!tableRef.current) return;
+            Exports.tableToBook(tableRef.current, 'participacion-docente-por-escuela')
+          }} />
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-4 pt-2">
-        <DataTableAssistanceBySchool columns={columns} data={data} />
+        <div ref={tableRef}>
+          <DataTableAssistanceBySchool columns={columns} data={data} />
+        </div>
       </CardContent>
     </Card>
   )
