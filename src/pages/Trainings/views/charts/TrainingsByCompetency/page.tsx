@@ -1,16 +1,19 @@
 import { getTrainingByCompetency, TrainingsByCompetency } from "@/services/reports"
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { CompetencyTrainingDataTable } from "./table"
 import { columns } from "./columns"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { SemesterStore } from "@/pages/Semesters/store/SemesterStore"
 import { Semester } from "@/services/semesters"
+import { DownloadButton } from "@/components/DataTable/DownloadButton"
+import { Exports } from "@/utils/exports"
 
 function TrainingsByCompetencyPage() {
   const [data, setData] = useState<TrainingsByCompetency[]>([])
   const [loading, setLoading] = React.useState(false)
   const { semesters, loading: loadingSemesters } = SemesterStore()
   const [semesterSelected, setSemesterSelected] = React.useState<Semester>()
+  const tableRef = useRef<HTMLTableElement | null>(null);
 
   const handleSelectSemester = async (semesterId: string) => {
     setLoading(true)
@@ -32,7 +35,7 @@ function TrainingsByCompetencyPage() {
     <Card className="flex flex-col w-full h-full">
       <CardHeader className="items-center pb-0 text-center">
         <CardTitle>Relación de capacitaciones generales y específicas programadas y su eficacia según su ejecución.</CardTitle>
-        <CardDescription>
+        <CardDescription className="flex gap-4 items-center justify-center w-full">
           <select
             value={semesterSelected?.id}
             className="p-2 border border-gray-300 rounded-md"
@@ -46,10 +49,16 @@ function TrainingsByCompetencyPage() {
               </option>
             ))}
           </select>
+          <DownloadButton disabled={data.length < 1} onClick={() => {
+            if (!tableRef.current || data.length < 1) return;
+            Exports.tableToBook(tableRef.current, 'lista-docentes')
+          }} />
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-4 pt-2">
-        <CompetencyTrainingDataTable columns={columns} data={data} />
+        <div ref={tableRef}>
+          <CompetencyTrainingDataTable columns={columns} data={data} />
+        </div>
       </CardContent>
     </Card>
   )
