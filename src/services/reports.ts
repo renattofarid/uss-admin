@@ -1,5 +1,6 @@
 import { api } from "./api";
-import { Professor } from "./professors";
+import { Professor, ProfessorEmploymentType } from "./professors";
+import { AttendanceStatus } from "./trainings";
 
 export interface ProfessorParticipation {
   attended: number;
@@ -15,6 +16,19 @@ export const getProfessorParticipationBySemester = async (
   return data;
 };
 
+export interface ParticipationBySchoolResponse {
+  participationBySchool: SchoolStatitic[];
+  professorsResume:      ProfessorsResume[];
+}
+
+export interface ProfessorsResume {
+  name:           string;
+  email:          string;
+  documentType:   DocumentType;
+  documentNumber: string;
+  employmentType: ProfessorEmploymentType;
+  status:         AttendanceStatus;
+}
 export interface SchoolStatitic {
   school: School;
   attended: number;
@@ -41,8 +55,8 @@ export const getAsistanceBySchool = async (): Promise<SchoolStatitic[]> => {
 export const getProfessorParticipationBySchool = async (
   semesterId: string,
   trainingId?: string
-): Promise<SchoolStatitic[]> => {
-  const { data } = await api.get<SchoolStatitic[]>(
+): Promise<ParticipationBySchoolResponse> => {
+  const { data } = await api.get<ParticipationBySchoolResponse>(
     `/reports/professor-participation-by-school`,
     {
       params: {

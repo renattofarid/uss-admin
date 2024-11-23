@@ -105,9 +105,14 @@ function ModalTraining() {
                 })
                 return
             }
+            const executions = data.executions.map((execution) => ({
+                ...execution,
+                durationInMinutes: Number(execution.durationInMinutes)
+            }))
             return await crtTraining({
                 ...data,
                 status: TrainingStatus.ACTIVE,
+                executions,
             })
         }
         if (action === 'edit') {
@@ -229,10 +234,10 @@ function ModalTraining() {
                                             },
                                         })}
                                         value={watch('semesterId') as any &&
-                                            schools.find((school) => school.id === watch('semesterId')) &&
+                                            semesters.find((semester) => semester.id === watch('semesterId')) &&
                                         {
                                             value: watch('semesterId'),
-                                            label: schools.find((school) => school.id === watch('semesterId'))?.name
+                                            label: semesters.find((semester) => semester.id === watch('semesterId'))?.name
                                         }
                                         }
                                         isDisabled={loading}

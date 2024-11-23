@@ -20,6 +20,8 @@ import {
 import { getProffessorsByEmploymentType, ProffessorsByEmploymentType } from "@/services/reports"
 import { Semester } from "@/services/semesters"
 import { SemesterStore } from "@/pages/Semesters/store/SemesterStore"
+import LoaderSemeter from "../../components/loaders/loader-semesters"
+import LoaderReport from "../../components/loaders/loader-report"
 
 let chartDataFullTime = [
   { key: "attended", count: 0, fill: "hsl(var(--chart-1))" },
@@ -85,11 +87,11 @@ export function ProfessorsByEmploymentType() {
   }, [proffesorsByEmploymentType])
 
   if (loadingSemesters) {
-    return <div>Cargando semestres...</div>
+    return <LoaderSemeter />
   }
 
   if (loading) {
-    return <div>Cargando...</div>
+    return <LoaderReport />
   }
 
   return (
@@ -130,25 +132,24 @@ export function ProfessorsByEmploymentType() {
               nameKey="key"
               innerRadius={60}
               outerRadius={80}
-              strokeWidth={15}
+              strokeWidth={0}
               label={
                 ({ cx, cy, midAngle, innerRadius, outerRadius, fill, payload }) => {
                   const RADIAN = Math.PI / 180
                   const radius = 25 + innerRadius + (outerRadius - innerRadius)
                   const x = cx + radius * Math.cos(-midAngle * RADIAN)
                   const y = cy + radius * Math.sin(-midAngle * RADIAN)
-
+                  // console.log({ payload, totalCountFullTime })
                   return (
                     <text
                       x={x}
                       y={y}
                       fill={fill}
-                      fontSize={12}
-                      textAnchor={x > cx ? "start" : "end"}
+                      fontSize={9}
+                      textAnchor="middle"
                       dominantBaseline="central"
                     >
-                      {/* {payload.key} */}
-                      {(payload.count / totalCountFullTime * 100).toFixed(2)}%
+                      {((payload.count / totalCountFullTime) * 100).toFixed(2)}%
                     </text>
                   )
                 }
@@ -212,25 +213,23 @@ export function ProfessorsByEmploymentType() {
               nameKey="key"
               innerRadius={60}
               outerRadius={80}
-              strokeWidth={15}
+              strokeWidth={0}
               label={
                 ({ cx, cy, midAngle, innerRadius, outerRadius, fill, payload }) => {
                   const RADIAN = Math.PI / 180
                   const radius = 25 + innerRadius + (outerRadius - innerRadius)
                   const x = cx + radius * Math.cos(-midAngle * RADIAN)
                   const y = cy + radius * Math.sin(-midAngle * RADIAN)
-
                   return (
                     <text
                       x={x}
                       y={y}
                       fill={fill}
-                      fontSize={12}
-                      textAnchor={x > cx ? "start" : "end"}
+                      fontSize={9}
+                      textAnchor="middle"
                       dominantBaseline="central"
                     >
-                      {/* {payload.key} */}
-                      {(payload.count / totalCountPartTime * 100).toFixed(2)}%
+                      {((payload.count / totalCountPartTime) * 100).toFixed(2)}%
                     </text>
                   )
                 }

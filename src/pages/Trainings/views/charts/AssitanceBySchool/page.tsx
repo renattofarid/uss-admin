@@ -1,4 +1,4 @@
-import { getProfessorParticipationBySchool, SchoolStatitic } from "@/services/reports"
+import { getProfessorParticipationBySchool, ProfessorsResume, SchoolStatitic } from "@/services/reports"
 import React, { useRef, useState } from "react"
 import { DataTableAssistanceBySchool } from "./table"
 import { columns } from "./columns"
@@ -7,11 +7,14 @@ import { SemesterStore } from "@/pages/Semesters/store/SemesterStore"
 import { Semester } from "@/services/semesters"
 import { DownloadButton } from "@/components/DataTable/DownloadButton"
 import { Exports } from "@/utils/exports"
+import LoaderSemeter from "@/pages/Trainings/components/loaders/loader-semesters"
+import LoaderReport from "@/pages/Trainings/components/loaders/loader-report"
 
 // const TABLE_ID = 'participation-by-school';
 
 function AssistanceBySchool() {
   const [data, setData] = useState<SchoolStatitic[]>([])
+  const [resumenProffesors, setResumenProffesors] = useState<ProfessorsResume[]>([])
   const [loading, setLoading] = React.useState(false)
   const { semesters, loading: loadingSemesters } = SemesterStore()
   const [semesterSelected, setSemesterSelected] = React.useState<Semester>()
@@ -20,17 +23,18 @@ function AssistanceBySchool() {
   const handleSelectSemester = async (semesterId: string) => {
     setLoading(true)
     setSemesterSelected(semesters.find((semester) => semester.id === semesterId))
-    const data = await getProfessorParticipationBySchool(semesterId)
-    setData(data)
+    const { participationBySchool, professorsResume } = await getProfessorParticipationBySchool(semesterId)
+    setData(participationBySchool)
+    setResumenProffesors(professorsResume)
     setLoading(false)
   }
 
   if (loadingSemesters) {
-    return <div>Cargando semestres...</div>
+    return <LoaderSemeter />
   }
 
   if (loading) {
-    return <div>Cargando...</div>
+    return <LoaderReport />
   }
 
   return (
@@ -59,7 +63,7 @@ function AssistanceBySchool() {
       </CardHeader>
       <CardContent className="flex-1 pb-4 pt-2">
         <div ref={tableRef}>
-          <DataTableAssistanceBySchool columns={columns} data={data} />
+          <DataTableAssistanceBySchool columns={columns} data={data} resumenProffesors={resumenProffesors} />
         </div>
       </CardContent>
     </Card>

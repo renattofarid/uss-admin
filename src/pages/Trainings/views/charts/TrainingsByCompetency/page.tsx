@@ -7,6 +7,8 @@ import { SemesterStore } from "@/pages/Semesters/store/SemesterStore"
 import { Semester } from "@/services/semesters"
 import { DownloadButton } from "@/components/DataTable/DownloadButton"
 import { Exports } from "@/utils/exports"
+import LoaderSemeter from "@/pages/Trainings/components/loaders/loader-semesters"
+import LoaderReport from "@/pages/Trainings/components/loaders/loader-report"
 
 function TrainingsByCompetencyPage() {
   const [data, setData] = useState<TrainingsByCompetency[]>([])
@@ -24,11 +26,11 @@ function TrainingsByCompetencyPage() {
   }
 
   if (loadingSemesters) {
-    return <div>Cargando semestres...</div>
+    return <LoaderSemeter />
   }
 
   if (loading) {
-    return <div>Cargando...</div>
+    return <LoaderReport />
   }
 
   return (
